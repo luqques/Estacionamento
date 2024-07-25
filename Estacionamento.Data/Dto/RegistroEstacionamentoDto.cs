@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Estacionamento.Domain.Entities
+namespace Estacionamento.Data.Dto
 {
-    public class RegistroEstacionamento : BaseEntity
+    public class RegistroEstacionamentoDto
     {
+        [Required]
+        public int Id { get; set; }
 
         [Required]
         public int VeiculoId { get; set; }

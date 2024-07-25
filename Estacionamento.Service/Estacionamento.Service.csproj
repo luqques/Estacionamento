@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Estacionamento.Data\Estacionamento.Data.csproj" />
     <ProjectReference Include="..\Estacionamento.Domain\Estacionamento.Domain.csproj" />
   </ItemGroup>
 

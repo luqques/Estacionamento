@@ -11,12 +11,14 @@ namespace Estacionamento.Data.Context
         }
 
         public DbSet<Veiculo> Veiculos { get; set; }
+        public DbSet<RegistroEstacionamento> RegistrosEstacionamento { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Veiculo>(new VeiculoMap().Configure);
+            modelBuilder.Entity<RegistroEstacionamento>(new RegistroEstacionamentoMap().Configure);
         }
     }
 }
