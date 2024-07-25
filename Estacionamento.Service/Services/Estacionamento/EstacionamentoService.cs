@@ -28,5 +28,12 @@ namespace Estacionamento.Service.Services.Estacionamento
 
             return _estacionamentoRespository.InserirEntradaVeiculo(registroEstacionamento);
         }
+
+        public Task<bool> RegistrarSaidaDeVeiculo(int veiculoId)
+        {
+            ArgumentNullException.ThrowIfNull(veiculoId);
+
+            return _estacionamentoRespository.RemoverVeiculoDoEstacionamento(veiculoId);
+        }
     }
 }

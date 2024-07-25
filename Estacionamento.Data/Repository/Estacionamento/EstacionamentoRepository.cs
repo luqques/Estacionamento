@@ -25,5 +25,17 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
             return _mapper.Map<RegistroEstacionamentoDto>(resgitro);
         }
+
+        public async Task<bool> RemoverVeiculoDoEstacionamento(int veiculoId)
+        {
+            var registroEstacionamento = await _context.RegistrosEstacionamento.FindAsync(veiculoId);
+
+            if (registroEstacionamento is null)
+                return false;
+
+            _context.RegistrosEstacionamento.Remove(registroEstacionamento);
+
+            return (await _context.SaveChangesAsync()) == 1;
+        }
     }
 }
