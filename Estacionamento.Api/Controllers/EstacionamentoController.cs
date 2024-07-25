@@ -32,12 +32,12 @@ namespace Estacionamento.Api.Controllers
             if (veiculoId == 0)
                 return BadRequest();
 
-            bool veiculo = await _estacionamentoService.RegistrarSaidaDeVeiculo(veiculoId);
+            bool veiculoRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(veiculoId);
 
-            if (veiculo)
+            if (!veiculoRemovido)
                 return NotFound();
 
-            return Ok(veiculo);
+            return Ok(veiculoRemovido);
         }
     }
 }

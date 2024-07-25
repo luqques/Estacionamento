@@ -6,6 +6,6 @@ namespace Estacionamento.Service.Services.Veiculo
     {
         Task<VeiculoDto> CadastrarOuAtualizarVeiculo(VeiculoDto veiculoDto);
 
-        Task<bool> ExisteVeiculoCadastrado(string placaVeiculo);
+        Task<bool> RemoverVeiculo(int id);
     }
 }

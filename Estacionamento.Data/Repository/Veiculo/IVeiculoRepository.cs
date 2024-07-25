@@ -9,5 +9,9 @@ namespace Estacionamento.Data.VeiculoRepository
         Task<bool> ExisteVeiculoPorPlaca(string placaVeiculo);
 
         Task<VeiculoDto> AtualizarVeiculo(VeiculoDto veiculoDto);
+
+        Task<bool> ExisteVeiculoPorId(int id);
+
+        Task<bool> RemoverVeiculo(int id);
     }
 }
