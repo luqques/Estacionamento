@@ -1,4 +1,4 @@
-﻿using Estacionamento.Data.Dto;
+﻿using Estacionamento.Domain.Dto;
 
 namespace Estacionamento.Data.Repository.Estacionamento
 {

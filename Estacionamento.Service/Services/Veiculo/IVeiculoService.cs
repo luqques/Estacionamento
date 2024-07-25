@@ -4,8 +4,8 @@ namespace Estacionamento.Service.Services.Veiculo
 {
     public interface IVeiculoService
     {
-        public Task<VeiculoDto> CadastrarOuAtualizarVeiculo(VeiculoDto veiculoDto);
+        Task<VeiculoDto> CadastrarOuAtualizarVeiculo(VeiculoDto veiculoDto);
 
-        public Task<bool> ExisteVeiculoCadastrado(string placaVeiculo);
+        Task<bool> ExisteVeiculoCadastrado(string placaVeiculo);
     }
 }

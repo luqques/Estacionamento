@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Estacionamento.Data.Context;
-using Estacionamento.Data.Dto;
+using Estacionamento.Domain.Dto;
 using Estacionamento.Domain.Entities;
 
 namespace Estacionamento.Data.Repository.Estacionamento
@@ -18,7 +18,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
         public async Task<RegistroEstacionamentoDto> InserirEntradaVeiculo(RegistroEstacionamentoDto registroDto)
         {
-            RegistroEstacionamento resgitro = _mapper.Map<RegistroEstacionamento>(registroDto);
+            RegistroEstacionamentoEntity resgitro = _mapper.Map<RegistroEstacionamentoEntity>(registroDto);
 
             _context.RegistrosEstacionamento.Add(resgitro);
             await _context.SaveChangesAsync();

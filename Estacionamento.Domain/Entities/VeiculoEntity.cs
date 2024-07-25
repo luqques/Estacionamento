@@ -2,7 +2,7 @@
 
 namespace Estacionamento.Domain.Entities
 {
-    public class Veiculo : BaseEntity
+    public class VeiculoEntity : BaseEntity
     {
         [Required]
         public string Placa { get; set; }

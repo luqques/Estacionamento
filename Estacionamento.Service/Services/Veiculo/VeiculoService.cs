@@ -1,4 +1,4 @@
-﻿using Estacionamento.Data.Repository.Veiculo;
+﻿using Estacionamento.Data.VeiculoRepository;
 using Estacionamento.Domain.Dto;
 
 namespace Estacionamento.Service.Services.Veiculo
@@ -16,7 +16,8 @@ namespace Estacionamento.Service.Services.Veiculo
         {
             try
             {
-                if (!ExisteVeiculoCadastrado(veiculoDto.Placa))
+                bool veiculoCadastrado = await ExisteVeiculoCadastrado(veiculoDto.Placa);
+                if (veiculoCadastrado)
                     return await _veiculoRepository.AtualizarVeiculo(veiculoDto);
 
                 return await _veiculoRepository.CadastrarVeiculo(veiculoDto);
@@ -27,9 +28,9 @@ namespace Estacionamento.Service.Services.Veiculo
             }
         }
 
-        private Task<bool> ExisteVeiculoCadastrado(string placaVeiculo)
+        public async Task<bool> ExisteVeiculoCadastrado(string placaVeiculo)
         {
-            return _veiculoRepository.ExisteVeiculoPorPlaca(placaVeiculo);
+            return await _veiculoRepository.ExisteVeiculoPorPlaca(placaVeiculo);
         }
     }
 }

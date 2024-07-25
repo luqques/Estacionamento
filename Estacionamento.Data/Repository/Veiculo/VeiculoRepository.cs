@@ -4,7 +4,7 @@ using Estacionamento.Domain.Dto;
 using Estacionamento.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Estacionamento.Data.Repository.Veiculo
+namespace Estacionamento.Data.VeiculoRepository
 {
     public class VeiculoRepository : IVeiculoRepository
     {
@@ -19,12 +19,12 @@ namespace Estacionamento.Data.Repository.Veiculo
 
         public async Task<VeiculoDto> CadastrarVeiculo(VeiculoDto veiculoDto)
         {
-            Veiculo veiculo = _mapper.Map<Veiculo>(veiculoDto);
+            VeiculoEntity veiculo = _mapper.Map<VeiculoEntity>(veiculoDto);
 
             _context.Veiculos.Add(veiculo);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<Veiculo>(veiculo);
+            return _mapper.Map<VeiculoDto>(veiculo);
         }
 
         public Task<VeiculoDto> AtualizarVeiculo(VeiculoDto veiculoDto)

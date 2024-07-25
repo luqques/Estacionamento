@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Estacionamento.Data.Context;
-using Estacionamento.Data.Dto;
 using Estacionamento.Data.Repository.Estacionamento;
-using Estacionamento.Data.Repository.Veiculo;
+using Estacionamento.Data.VeiculoRepository;
 using Estacionamento.Domain.Dto;
 using Estacionamento.Domain.Entities;
 using Estacionamento.Service.Services.Estacionamento;
@@ -42,11 +41,11 @@ namespace Estacionamento.Api
 
             services.AddSingleton(new MapperConfiguration(config =>
             {
-                config.CreateMap<VeiculoDto, Veiculo>();
-                config.CreateMap<Veiculo, VeiculoDto>();
+                config.CreateMap<VeiculoDto, VeiculoEntity>();
+                config.CreateMap<VeiculoEntity, VeiculoDto>();
 
-                config.CreateMap<RegistroEstacionamentoDto, RegistroEstacionamento>();
-                config.CreateMap<RegistroEstacionamento, RegistroEstacionamentoDto>();
+                config.CreateMap<RegistroEstacionamentoDto, RegistroEstacionamentoEntity>();
+                config.CreateMap<RegistroEstacionamentoEntity, RegistroEstacionamentoDto>();
             }).CreateMapper());
         }
 

@@ -10,8 +10,8 @@ namespace Estacionamento.Api.Config
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                config.CreateMap<VeiculoDto, Veiculo>();
-                config.CreateMap<Veiculo, VeiculoDto>();
+                config.CreateMap<VeiculoDto, VeiculoEntity>();
+                config.CreateMap<VeiculoEntity, VeiculoDto>();
             });
 
             return mappingConfig;

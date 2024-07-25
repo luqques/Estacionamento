@@ -1,5 +1,4 @@
-﻿using Estacionamento.Data.Dto;
-using Estacionamento.Domain.Dto;
+﻿using Estacionamento.Domain.Dto;
 using Estacionamento.Service.Services.Estacionamento;
 using Microsoft.AspNetCore.Mvc;
 

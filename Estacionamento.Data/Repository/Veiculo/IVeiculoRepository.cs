@@ -1,6 +1,6 @@
 ﻿using Estacionamento.Domain.Dto;
 
-namespace Estacionamento.Data.Repository.Veiculo
+namespace Estacionamento.Data.VeiculoRepository
 {
     public interface IVeiculoRepository
     {

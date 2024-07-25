@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Estacionamento.Data.Dto
+namespace Estacionamento.Domain.Dto
 {
     public class RegistroEstacionamentoDto
     {

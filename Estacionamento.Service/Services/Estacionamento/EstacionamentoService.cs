@@ -1,6 +1,5 @@
-﻿using Estacionamento.Data.Dto;
-using Estacionamento.Data.Repository.Estacionamento;
-using Estacionamento.Data.Repository.Veiculo;
+﻿using Estacionamento.Data.Repository.Estacionamento;
+using Estacionamento.Data.VeiculoRepository;
 using Estacionamento.Domain.Dto;
 using Estacionamento.Service.Services.Veiculo;
 

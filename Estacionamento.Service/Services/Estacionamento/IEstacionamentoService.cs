@@ -1,6 +1,4 @@
-﻿using Estacionamento.Data.Dto;
-using Estacionamento.Domain.Dto;
-using Estacionamento.Domain.Entities;
+﻿using Estacionamento.Domain.Dto;
 
 namespace Estacionamento.Service.Services.Estacionamento
 {

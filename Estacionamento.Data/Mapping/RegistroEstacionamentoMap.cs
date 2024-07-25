@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Estacionamento.Data.Mapping
 {
-    public class RegistroEstacionamentoMap : IEntityTypeConfiguration<RegistroEstacionamento>
+    public class RegistroEstacionamentoMap : IEntityTypeConfiguration<RegistroEstacionamentoEntity>
     {
-        public void Configure(EntityTypeBuilder<RegistroEstacionamento> builder)
+        public void Configure(EntityTypeBuilder<RegistroEstacionamentoEntity> builder)
         {
             builder.ToTable("RegistroEstacionamento");
 

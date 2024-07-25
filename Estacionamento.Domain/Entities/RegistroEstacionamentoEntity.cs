@@ -2,7 +2,7 @@
 
 namespace Estacionamento.Domain.Entities
 {
-    public class RegistroEstacionamento : BaseEntity
+    public class RegistroEstacionamentoEntity : BaseEntity
     {
 
         [Required]
