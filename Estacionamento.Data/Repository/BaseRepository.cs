@@ -15,11 +15,11 @@ namespace Estacionamento.Data.Repository
 
         //TODO: Implementar interface quando tiver feita
 
-        //public void Insert(TEntity obj)
-        //{
-        //    _context.Set<TEntity>().Add(obj);
-        //    _context.SaveChanges();
-        //}
+        public void Insert(TEntity obj)
+        {
+            _context.Set<TEntity>().Add(obj);
+            _context.SaveChanges();
+        }
 
         //public void Update(TEntity obj)
         //{
