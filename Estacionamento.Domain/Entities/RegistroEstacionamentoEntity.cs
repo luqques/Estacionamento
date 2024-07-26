@@ -4,14 +4,37 @@ namespace Estacionamento.Domain.Entities
 {
     public class RegistroEstacionamentoEntity : BaseEntity
     {
+        private VeiculoEntity _veiculoEntity;
 
         [Required]
-        public VeiculoEntity Veiculo { get; set; }
+        public VeiculoEntity Veiculo
+        {
+            get { return _veiculoEntity; }
+            set
+            {
+                _veiculoEntity = value;
+                VeiculoId = value.Id;
+            }
+        }
 
         [Required]
-        public int VeiculoId { get; set; }
+        public int VeiculoId { get; private set; }
 
-        public TabelaDePrecosEntity TabelaDePrecos { get; set; }
+        private TabelaDePrecosEntity _tabelaDePrecosEntity;
+
+        [Required]
+        public TabelaDePrecosEntity TabelaDePrecos
+        {
+            get { return _tabelaDePrecosEntity; }
+            set 
+            {
+                _tabelaDePrecosEntity = value;
+                TabelaDePrecosId = value.Id;
+            }
+        }
+
+        [Required]
+        public int TabelaDePrecosId { get; private set; }
 
         [Required]
         public DateTime DataHoraEntrada { get; set; }
