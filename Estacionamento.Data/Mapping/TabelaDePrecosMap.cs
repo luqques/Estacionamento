@@ -15,7 +15,11 @@ namespace Estacionamento.Data.Mapping
             builder.Property(prop => prop.PrecoHora)
                 .HasColumnName("PrecoHora")
                 .HasColumnType("decimal(10,2)");
-            
+
+            builder.Property(prop => prop.PrecoHoraAdicional)
+                .HasColumnName("PrecoHoraAdicional")
+                .HasColumnType("decimal(10,2)");
+
             builder.Property(prop => prop.DataHoraCadastro)
                 .HasColumnName("DataHoraCadastro")
                 .HasColumnType("datetime");

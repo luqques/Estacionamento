@@ -20,7 +20,7 @@ namespace Estacionamento.UnitTests
             decimal precoTotal = tabelaDePrecos.CalcularPreco(minutos);
 
             //Assert
-            Assert.Equal(precoTotal, precoTotalExpected);
+            Assert.Equal(precoTotalExpected, precoTotal);
         }
     }
 }

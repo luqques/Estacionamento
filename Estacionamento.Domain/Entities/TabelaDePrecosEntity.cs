@@ -10,36 +10,45 @@ namespace Estacionamento.Domain.Entities
             DataHoraCadastro = DateTime.Now;
         }
 
-        [Required]
-        public decimal PrecoHora { get; set; }
+        private decimal _precoHora;
+
+        public decimal PrecoHora
+        {
+            get { return _precoHora; }
+            set
+            {
+                _precoHora = value;
+                PrecoHoraAdicional = value / 2m;
+            }
+        }
+
+        public decimal PrecoHoraAdicional { get; private set; }
 
         [Required]
         public DateTime DataHoraCadastro { get; set; }
 
         public decimal CalcularPreco(int minutos)
         {
-            if (minutos <= 0)
-                return 0;
+            decimal precoTotal = 0;
 
-            decimal horasCompletas = minutos / 60m;
-            int minutosRestantes = minutos % 60;
-            
-            decimal precoFinal = 0m;
             if (minutos <= 30)
             {
-                precoFinal = PrecoHora / 2;
+                precoTotal = PrecoHora / 2;
             }
             else
             {
-                precoFinal = horasCompletas * PrecoHora;
+                precoTotal = PrecoHora;
 
-                if (minutosRestantes > 10)
+                minutos -= 60;
+
+                if (minutos > 0)
                 {
-                    precoFinal += PrecoHora;
+                    int horasAdicionais = (minutos + 9) / 60;
+                    precoTotal += horasAdicionais * PrecoHoraAdicional;
                 }
             }
 
-            return precoFinal;
+            return precoTotal;
         }
     }
 }
