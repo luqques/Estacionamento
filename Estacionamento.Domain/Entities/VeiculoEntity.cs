@@ -7,8 +7,8 @@ namespace Estacionamento.Domain.Entities
         [Required]
         public string Placa { get; set; }
 
-        public string? NomeProprietario { get; set; }
+        public string NomeProprietario { get; set; }
 
-        public string? Modelo { get; set; }
+        public string Modelo { get; set; }
     }
 }

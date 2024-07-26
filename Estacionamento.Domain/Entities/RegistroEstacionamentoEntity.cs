@@ -8,7 +8,10 @@ namespace Estacionamento.Domain.Entities
         [Required]
         public VeiculoEntity Veiculo { get; set; }
 
-        public TabelaDePrecosEntity? TabelaDePrecos { get; set; }
+        [Required]
+        public int VeiculoId { get; set; }
+
+        public TabelaDePrecosEntity TabelaDePrecos { get; set; }
 
         [Required]
         public DateTime DataHoraEntrada { get; set; }

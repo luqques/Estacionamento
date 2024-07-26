@@ -1,14 +1,15 @@
 ﻿using Estacionamento.Domain.Dto;
+using Estacionamento.Domain.Entities;
 
 namespace Estacionamento.Data.VeiculoRepository
 {
     public interface IVeiculoRepository
     {
-        Task<VeiculoDto> CadastrarVeiculo(VeiculoDto veiculoDto);
+        Task<VeiculoEntity> CadastrarVeiculo(VeiculoDto veiculoDto);
 
         Task<bool> ExisteVeiculoPorPlaca(string placaVeiculo);
 
-        Task<VeiculoDto> AtualizarVeiculo(VeiculoDto veiculoDto);
+        Task<VeiculoEntity> AtualizarVeiculo(VeiculoDto veiculoDto);
 
         Task<bool> ExisteVeiculoPorId(int id);
 

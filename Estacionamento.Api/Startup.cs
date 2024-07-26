@@ -29,7 +29,7 @@ namespace Estacionamento.Api
 
             services.AddDbContext<MySqlContext>(options =>
             {
-                var connection = Configuration.GetConnectionString("ConnectionStrings:MySqlConnectionString");
+                var connection = Configuration["MySqlConnectionString"];
                 var serverVersion = new MySqlServerVersion(new Version(8, 0, 36));
 
                 options.UseMySql(connection, serverVersion);
@@ -49,8 +49,11 @@ namespace Estacionamento.Api
                 config.CreateMap<VeiculoDto, VeiculoEntity>();
                 config.CreateMap<VeiculoEntity, VeiculoDto>();
 
-                config.CreateMap<RegistroEstacionamentoDetalhadoDto, RegistroEstacionamentoEntity>();
-                config.CreateMap<RegistroEstacionamentoEntity, RegistroEstacionamentoDetalhadoDto>();
+                config.CreateMap<RegistroEstacionamentoDto, RegistroEstacionamentoEntity>();
+                config.CreateMap<RegistroEstacionamentoEntity, RegistroEstacionamentoDto>();
+
+                config.CreateMap<TabelaDePrecosDto, TabelaDePrecosEntity>();
+                config.CreateMap<TabelaDePrecosEntity, TabelaDePrecosDto>();
             }).CreateMapper());
         }
 

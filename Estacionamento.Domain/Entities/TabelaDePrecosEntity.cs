@@ -7,6 +7,7 @@ namespace Estacionamento.Domain.Entities
         public TabelaDePrecosEntity(decimal precoHora)
         {
             PrecoHora = precoHora;
+            DataHoraCadastro = DateTime.Now;
         }
 
         [Required]

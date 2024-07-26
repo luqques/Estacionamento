@@ -1,7 +1,6 @@
 ﻿using Estacionamento.Data.Repository.Estacionamento;
-using Estacionamento.Data.Repository.TabelaDePrecos;
-using Estacionamento.Data.VeiculoRepository;
 using Estacionamento.Domain.Dto;
+using Estacionamento.Domain.Entities;
 using Estacionamento.Service.Services.Veiculo;
 
 namespace Estacionamento.Service.Services.Estacionamento
@@ -17,7 +16,7 @@ namespace Estacionamento.Service.Services.Estacionamento
             _estacionamentoRespository = estacionamentoRespository;
         }
 
-        public async Task<RegistroEstacionamentoDto> RegistrarEntradaDeVeiculo(VeiculoDto veiculoDto)
+        public async Task<RegistroEstacionamentoEntity> RegistrarEntradaDeVeiculo(VeiculoDto veiculoDto)
         {
             ArgumentNullException.ThrowIfNull(veiculoDto);
 

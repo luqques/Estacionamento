@@ -20,21 +20,30 @@ namespace Estacionamento.Data.Repository.Estacionamento
             _tabelaDePrecosRepository = tabelaDePrecosRepository;
         }
 
-        public async Task<RegistroEstacionamentoDto> InserirEntradaVeiculo(RegistroEstacionamentoDto registroDto)
+        public async Task<RegistroEstacionamentoEntity> InserirEntradaVeiculo(RegistroEstacionamentoDto registroDto)
         {
-            RegistroEstacionamentoEntity resgitro = _mapper.Map<RegistroEstacionamentoEntity>(registroDto);
+            try
+            {
+                var resgitro = _mapper.Map<RegistroEstacionamentoEntity>(registroDto);
 
-            _context.RegistrosEstacionamento.Add(resgitro);
-            await _context.SaveChangesAsync();
+                _context.RegistrosEstacionamento.Add(resgitro);
+                await _context.SaveChangesAsync();
 
-            return _mapper.Map<RegistroEstacionamentoDto>(resgitro);
+                return _mapper.Map<RegistroEstacionamentoEntity>(resgitro);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<bool> RemoverVeiculoDoEstacionamento(int veiculoId)
         {
             TabelaDePrecosEntity tabelaPrecos = await _tabelaDePrecosRepository.ObterPrecoHoraAtual();
 
-            var registroEstacionamento = await _context.RegistrosEstacionamento.FindAsync(veiculoId);
+            var registroEstacionamento = _context.RegistrosEstacionamento
+                                                    .Where(v => v.VeiculoId == veiculoId)
+                                                    .FirstOrDefault();
 
             if (registroEstacionamento is null)
                 return false;
@@ -50,8 +59,6 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
         public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoDetalhado()
         {
-            var tabelaPreco = await _tabelaDePrecosRepository.ObterPrecoHoraAtual();
-
             var registros = await _context.RegistrosEstacionamento
                 .Select(r => new RegistroEstacionamentoDetalhadoDto
                 {
@@ -60,7 +67,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
                     DataHoraSaida = r.DataHoraSaida,
                     Duracao = (r.DataHoraSaida.HasValue ? (r.DataHoraSaida.Value - r.DataHoraEntrada).ToString(@"hh\:mm\:ss") : "N/A"),
                     TempoCobradoHoras = (r.MinutosTotais.HasValue ? (int)Math.Ceiling((decimal)r.MinutosTotais.Value / 60) : 0),
-                    PrecoHora = tabelaPreco.PrecoHora,
+                    PrecoHora = r.TabelaDePrecos.PrecoHora,
                     ValorPagar = r.ValorPagar ?? 0
                 })
                 .ToListAsync();

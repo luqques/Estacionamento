@@ -23,7 +23,7 @@ namespace Estacionamento.Api.Controllers
 
             var veiculo = await _tabelaDePrecosService.AlterarPrecoHora(precoHora);
 
-            return Ok("Preço cadastrado com sucesso!" + veiculo);
+            return Ok(veiculo);
         }
     }
 }

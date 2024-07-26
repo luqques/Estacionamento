@@ -1,5 +1,6 @@
 ﻿using Estacionamento.Data.VeiculoRepository;
 using Estacionamento.Domain.Dto;
+using Estacionamento.Domain.Entities;
 
 namespace Estacionamento.Service.Services.Veiculo
 {
@@ -12,7 +13,7 @@ namespace Estacionamento.Service.Services.Veiculo
             _veiculoRepository = veiculoRepository;
         }
 
-        public async Task<VeiculoDto> CadastrarOuAtualizarVeiculo(VeiculoDto veiculoDto)
+        public async Task<VeiculoEntity> CadastrarOuAtualizarVeiculo(VeiculoDto veiculoDto)
         {
             try
             {

@@ -17,24 +17,28 @@ namespace Estacionamento.Data.VeiculoRepository
             _mapper = mapper;
         }
 
-        public async Task<VeiculoDto> CadastrarVeiculo(VeiculoDto veiculoDto)
+        public async Task<VeiculoEntity> CadastrarVeiculo(VeiculoDto veiculoDto)
         {
             VeiculoEntity veiculo = _mapper.Map<VeiculoEntity>(veiculoDto);
 
             _context.Veiculos.Add(veiculo);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<VeiculoDto>(veiculo);
+            return _mapper.Map<VeiculoEntity>(veiculo);
         }
 
-        public async Task<VeiculoDto> AtualizarVeiculo(VeiculoDto veiculoDto)
+        public async Task<VeiculoEntity> AtualizarVeiculo(VeiculoDto veiculoDto)
         {
-            VeiculoEntity veiculo = _mapper.Map<VeiculoEntity>(veiculoDto);
+            VeiculoEntity veiculo = _context.Veiculos
+                .Where(v => v.Placa == veiculoDto.Placa)
+                .FirstOrDefault();
+
+            veiculo = veiculoDto.MapToEntity();
 
             _context.Veiculos.Update(veiculo);
             await _context.SaveChangesAsync();
             
-            return _mapper.Map<VeiculoDto>(veiculo);
+            return _mapper.Map<VeiculoEntity>(veiculo);
         }
 
         public async Task<bool> RemoverVeiculo(int id)

@@ -1,4 +1,5 @@
 ﻿using Estacionamento.Domain.Dto;
+using Estacionamento.Domain.Entities;
 using Estacionamento.Service.Services.Estacionamento;
 using Estacionamento.Service.Services.Veiculo;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace Estacionamento.Api.Controllers
         }
 
         [HttpPost("cadastrar")]
-        public async Task<ActionResult<VeiculoDto>> CadastrarVeiculo([FromBody] VeiculoDto veiculoDto)
+        public async Task<ActionResult<VeiculoEntity>> CadastrarVeiculo([FromBody] VeiculoDto veiculoDto)
         {
             if (veiculoDto is null)
                 return BadRequest();
@@ -27,7 +28,7 @@ namespace Estacionamento.Api.Controllers
             return Ok(veiculo);
         }
 
-        [HttpDelete("remover/{id}")]
+        [HttpDelete("remover/{veiculoId}")]
         public async Task<ActionResult<bool>> SaidaVeiculo(int id)
         {
             if (id == 0)

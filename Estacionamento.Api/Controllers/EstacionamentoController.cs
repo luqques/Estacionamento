@@ -23,7 +23,7 @@ namespace Estacionamento.Api.Controllers
 
             var veiculo = await _estacionamentoService.RegistrarEntradaDeVeiculo(veiculoDto);
 
-            return Ok(veiculo);
+            return Ok(new { message = "Registrado entrada do veículo com sucesso!"});
         }
 
         [HttpDelete("registrar-saida/{veiculoId}")]
@@ -35,9 +35,9 @@ namespace Estacionamento.Api.Controllers
             bool veiculoRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(veiculoId);
 
             if (!veiculoRemovido)
-                return NotFound();
+                return NotFound(new { message = "O veículo não se encontra no estacionamento." });
 
-            return Ok(veiculoRemovido);
+            return Ok(new { message = "Registrado saída do veículo com sucesso!" });
         }
 
         [HttpGet("listar-registros")]

@@ -6,23 +6,23 @@ namespace Estacionamento.Domain.Dto
     public class RegistroEstacionamentoDto
     {
         [Required]
-        public int Id { get; set; }
+        public VeiculoEntity Veiculo { get; set; }
 
         [Required]
-        public VeiculoEntity Veiculo { get; set; }
+        public int VeiculoId { get; set; }
 
         [Required]
         public DateTime DataHoraEntrada { get; set; } = DateTime.Now;
 
-        public DateTime? DataHoraSaida { get; set; }
+        //public DateTime? DataHoraSaida { get; set; }
 
-        public decimal? ValorPagar { get; private set; }
+        //public decimal? ValorPagar { get; private set; }
 
-        public int? MinutosTotais { get; private set; }
+        //public int? MinutosTotais { get; private set; }
 
-        public void AdicionarVeiculo(VeiculoDto veiculoDto)
+        public void AdicionarVeiculo(VeiculoEntity veiculo)
         {
-            Veiculo = veiculoDto.MapToEntity();
+            Veiculo = veiculo;
         }
     }
 }
