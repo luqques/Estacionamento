@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Estacionamento.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Estacionamento.Domain.Dto
 {
@@ -8,13 +9,22 @@ namespace Estacionamento.Domain.Dto
         public int Id { get; set; }
 
         [Required]
-        public int VeiculoId { get; set; }
+        public VeiculoEntity Veiculo { get; set; }
 
         [Required]
-        public DateTime DataHoraEntrada { get; set; }
+        public DateTime DataHoraEntrada { get; set; } = DateTime.Now;
 
         public DateTime? DataHoraSaida { get; set; }
 
-        public decimal? ValorCobrado { get; set; }
+        public decimal? ValorPagar { get; private set; }
+
+        public int? MinutosTotais { get; private set; }
+
+        public void AdicionarVeiculo(VeiculoDto veiculoDto)
+        {
+            var veiculoEntity = veiculoDto.MapToEntity(); //mapear o DTO para entidade e adicionar nessa prop deste objeto.
+
+            Veiculo = veiculoDto
+        }
     }
 }

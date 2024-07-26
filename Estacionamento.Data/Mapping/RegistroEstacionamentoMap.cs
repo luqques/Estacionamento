@@ -8,11 +8,11 @@ namespace Estacionamento.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<RegistroEstacionamentoEntity> builder)
         {
-            builder.ToTable("RegistroEstacionamento");
+            builder.ToTable("RegistroEstacionamentoEntity");
 
             builder.HasKey(prop => prop.Id);
 
-            builder.Property(prop => prop.VeiculoId) //TODO: Verificar se não terá conflito sem o HasValue() igual no Veiculo
+            builder.Property(prop => prop.Veiculo.Id)
                 .IsRequired()
                 .HasColumnName("VeiculoId")
                 .HasColumnType("int");
@@ -26,8 +26,8 @@ namespace Estacionamento.Data.Mapping
                 .HasColumnName("DataHoraSaida")
                 .HasColumnType("datetime");
 
-            builder.Property(prop => prop.ValorCobrado)
-                .HasColumnName("ValorCobrado")
+            builder.Property(prop => prop.ValorPagar)
+                .HasColumnName("ValorPagar")
                 .HasColumnType("decimal(10,2)");
         }
     }

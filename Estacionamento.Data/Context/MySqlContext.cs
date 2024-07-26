@@ -12,6 +12,7 @@ namespace Estacionamento.Data.Context
 
         public DbSet<VeiculoEntity> Veiculos { get; set; }
         public DbSet<RegistroEstacionamentoEntity> RegistrosEstacionamento { get; set; }
+        public DbSet<TabelaDePrecosEntity> TabelaDePrecos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -19,6 +20,7 @@ namespace Estacionamento.Data.Context
 
             modelBuilder.Entity<VeiculoEntity>(new VeiculoMap().Configure);
             modelBuilder.Entity<RegistroEstacionamentoEntity>(new RegistroEstacionamentoMap().Configure);
+            modelBuilder.Entity<TabelaDePrecosEntity>(new TabelaDePrecosMap().Configure);
         }
     }
 }

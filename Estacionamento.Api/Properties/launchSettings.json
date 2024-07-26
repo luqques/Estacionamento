@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "http": {
+    "Estacionamento.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

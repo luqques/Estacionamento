@@ -1,4 +1,5 @@
 ﻿using Estacionamento.Data.Repository.Estacionamento;
+using Estacionamento.Data.Repository.TabelaDePrecos;
 using Estacionamento.Data.VeiculoRepository;
 using Estacionamento.Domain.Dto;
 using Estacionamento.Service.Services.Veiculo;
@@ -10,6 +11,7 @@ namespace Estacionamento.Service.Services.Estacionamento
         private readonly IVeiculoService _veiculoService;
         private readonly IEstacionamentoRepository _estacionamentoRespository;
         private readonly IVeiculoRepository _veiculoRepository;
+        private readonly ITabelaDePrecosRepository _tabelaDePrecosRepository;
 
         public EstacionamentoService(IVeiculoService veiculoService, IEstacionamentoRepository estacionamentoRespository, IVeiculoRepository veiculoRepository)
         {
@@ -22,11 +24,20 @@ namespace Estacionamento.Service.Services.Estacionamento
         {
             ArgumentNullException.ThrowIfNull(veiculoDto);
 
-            _veiculoService.CadastrarOuAtualizarVeiculo(veiculoDto);
+            var veiculo = _veiculoService.CadastrarOuAtualizarVeiculo(veiculoDto);
 
             RegistroEstacionamentoDto registroEstacionamento = new();
 
+            registroEstacionamento.Veiculo = veiculo;
+
             return _estacionamentoRespository.InserirEntradaVeiculo(registroEstacionamento);
+        }
+
+        public async Task<RegistroEstacionamentoDetalhadoDto> ListarRegistrosDetalhado()
+        {
+            var tabela = await _tabelaDePrecosRepository.ObterPrecoDaHora();
+
+            return await _estacionamentoRespository.ListarRegistrosEstacionamentoDetalhado();
         }
 
         public Task<bool> RegistrarSaidaDeVeiculo(int veiculoId)

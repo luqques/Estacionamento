@@ -15,8 +15,8 @@ namespace Estacionamento.Api.Controllers
             _estacionamentoService = estacionamentoService ?? throw new ArgumentNullException(nameof(estacionamentoService));
         }
 
-        [HttpPost("registrarEntrada")]
-        public async Task<ActionResult<RegistroEstacionamentoDto>> EntradaVeiculo([FromBody] VeiculoDto veiculoDto)
+        [HttpPost("registrar-entrada")]
+        public async Task<ActionResult<VeiculoDto>> EntradaVeiculo([FromBody] VeiculoDto veiculoDto)
         {
             if (veiculoDto is null)
                 return BadRequest();
@@ -26,7 +26,7 @@ namespace Estacionamento.Api.Controllers
             return Ok(veiculo);
         }
 
-        [HttpDelete("registrarSaida/{veiculoId}")]
+        [HttpDelete("registrar-saida/{veiculoId}")]
         public async Task<ActionResult<bool>> SaidaVeiculo(int veiculoId)
         {
             if (veiculoId == 0)
@@ -38,6 +38,13 @@ namespace Estacionamento.Api.Controllers
                 return NotFound();
 
             return Ok(veiculoRemovido);
+        }
+
+        [HttpGet("listar-registros")]
+        public async Task<ActionResult<IEnumerable<RegistroEstacionamentoDetalhadoDto>>> ListarRegistros()
+        {
+            var registros = await _estacionamentoService.ListarRegistrosDetalhado();
+            return Ok(registros);
         }
     }
 }

@@ -1,11 +1,42 @@
-﻿namespace Estacionamento.UnitTests
+﻿using Estacionamento.Domain.Entities;
+
+namespace Estacionamento.UnitTests
 {
     public class EstacionamentoTests
     {
         [Fact]
-        public void EstacionamentoTeste()
+        public void Dado_RangeDeTempo_Deve_CalcularTempoTotal()
         {
+            //Arrange
+            RegistroEstacionamentoEntity registro = new();
 
+            registro.DataHoraEntrada = new DateTime(2024, 07, 25, 06, 00, 00);
+            registro.DataHoraSaida = new DateTime(2024, 07, 25, 07, 30, 00);
+
+            //Act
+            registro.CalcularTotalDeHoras();
+
+            //Assert
+            Assert.True(registro.MinutosTotais == 90);
+        }
+
+        [Fact]
+        public void Dado_RangeDeTempo_Deve_CalcularPrecoTotal()
+        {
+            //Arrange
+            RegistroEstacionamentoEntity registro = new();
+            TabelaDePrecosEntity tabelaDePrecos = new();
+
+            tabelaDePrecos.PrecoHora = 2m;
+            registro.DataHoraEntrada = new DateTime(2024, 07, 25, 06, 00, 00);
+            registro.DataHoraSaida = new DateTime(2024, 07, 25, 07, 30, 00);
+
+            //Act
+            registro.CalcularTotalDeHoras();
+            registro.CalcularValorAPagar(tabelaDePrecos);
+
+            //Assert
+            Assert.True(registro.ValorPagar == 5m);
         }
     }
 }

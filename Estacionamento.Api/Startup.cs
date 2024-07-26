@@ -44,8 +44,8 @@ namespace Estacionamento.Api
                 config.CreateMap<VeiculoDto, VeiculoEntity>();
                 config.CreateMap<VeiculoEntity, VeiculoDto>();
 
-                config.CreateMap<RegistroEstacionamentoDto, RegistroEstacionamentoEntity>();
-                config.CreateMap<RegistroEstacionamentoEntity, RegistroEstacionamentoDto>();
+                config.CreateMap<RegistroEstacionamentoDetalhadoDto, RegistroEstacionamentoEntity>();
+                config.CreateMap<RegistroEstacionamentoEntity, RegistroEstacionamentoDetalhadoDto>();
             }).CreateMapper());
         }
 
