@@ -22,9 +22,7 @@ namespace Estacionamento.Domain.Dto
 
         public void AdicionarVeiculo(VeiculoDto veiculoDto)
         {
-            var veiculoEntity = veiculoDto.MapToEntity(); //mapear o DTO para entidade e adicionar nessa prop deste objeto.
-
-            Veiculo = veiculoDto
+            Veiculo = veiculoDto.MapToEntity();
         }
     }
 }

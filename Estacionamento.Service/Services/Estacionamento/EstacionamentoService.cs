@@ -10,41 +10,36 @@ namespace Estacionamento.Service.Services.Estacionamento
     {
         private readonly IVeiculoService _veiculoService;
         private readonly IEstacionamentoRepository _estacionamentoRespository;
-        private readonly IVeiculoRepository _veiculoRepository;
-        private readonly ITabelaDePrecosRepository _tabelaDePrecosRepository;
 
-        public EstacionamentoService(IVeiculoService veiculoService, IEstacionamentoRepository estacionamentoRespository, IVeiculoRepository veiculoRepository)
+        public EstacionamentoService(IVeiculoService veiculoService, IEstacionamentoRepository estacionamentoRespository)
         {
             _veiculoService = veiculoService;
             _estacionamentoRespository = estacionamentoRespository;
-            _veiculoRepository = veiculoRepository;
         }
 
-        public Task<RegistroEstacionamentoDto> RegistrarEntradaDeVeiculo(VeiculoDto veiculoDto)
+        public async Task<RegistroEstacionamentoDto> RegistrarEntradaDeVeiculo(VeiculoDto veiculoDto)
         {
             ArgumentNullException.ThrowIfNull(veiculoDto);
 
-            var veiculo = _veiculoService.CadastrarOuAtualizarVeiculo(veiculoDto);
+            var veiculo = await _veiculoService.CadastrarOuAtualizarVeiculo(veiculoDto);
 
-            RegistroEstacionamentoDto registroEstacionamento = new();
+            var registroEstacionamento = new RegistroEstacionamentoDto();
 
-            registroEstacionamento.Veiculo = veiculo;
+            registroEstacionamento.AdicionarVeiculo(veiculo);
 
-            return _estacionamentoRespository.InserirEntradaVeiculo(registroEstacionamento);
+            return await _estacionamentoRespository.InserirEntradaVeiculo(registroEstacionamento);
         }
 
-        public async Task<RegistroEstacionamentoDetalhadoDto> ListarRegistrosDetalhado()
+        public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosDetalhado()
         {
-            var tabela = await _tabelaDePrecosRepository.ObterPrecoDaHora();
-
             return await _estacionamentoRespository.ListarRegistrosEstacionamentoDetalhado();
         }
 
-        public Task<bool> RegistrarSaidaDeVeiculo(int veiculoId)
+        public async Task<bool> RegistrarSaidaDeVeiculo(int veiculoId)
         {
             ArgumentNullException.ThrowIfNull(veiculoId);
 
-            return _estacionamentoRespository.RemoverVeiculoDoEstacionamento(veiculoId);
+            return await _estacionamentoRespository.RemoverVeiculoDoEstacionamento(veiculoId);
         }
     }
 }

@@ -7,7 +7,9 @@ namespace Estacionamento.Domain.Entities
 
         [Required]
         public VeiculoEntity Veiculo { get; set; }
-        
+
+        public TabelaDePrecosEntity? TabelaDePrecos { get; set; }
+
         [Required]
         public DateTime DataHoraEntrada { get; set; }
 
@@ -31,6 +33,7 @@ namespace Estacionamento.Domain.Entities
             if (MinutosTotais is null)
                 throw new InvalidOperationException("Os minutos totais não foram calculados.");
 
+            TabelaDePrecos = tabelaDePrecos;
             ValorPagar = tabelaDePrecos.CalcularPreco(MinutosTotais.Value);
         }
     }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Estacionamento.Data.Context;
 using Estacionamento.Data.Repository.Estacionamento;
+using Estacionamento.Data.Repository.TabelaDePrecos;
 using Estacionamento.Data.VeiculoRepository;
 using Estacionamento.Domain.Dto;
 using Estacionamento.Domain.Entities;
@@ -38,6 +39,8 @@ namespace Estacionamento.Api
 
             services.AddScoped<IVeiculoRepository, VeiculoRepository>();
             services.AddScoped<IVeiculoService, VeiculoService>();
+
+            services.AddScoped<ITabelaDePrecosRepository, TabelaDePrecosRepository>();
 
             services.AddSingleton(new MapperConfiguration(config =>
             {

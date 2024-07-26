@@ -24,10 +24,9 @@ namespace Estacionamento.UnitTests
         public void Dado_RangeDeTempo_Deve_CalcularPrecoTotal()
         {
             //Arrange
-            RegistroEstacionamentoEntity registro = new();
-            TabelaDePrecosEntity tabelaDePrecos = new();
+            var registro = new RegistroEstacionamentoEntity();
+            var tabelaDePrecos = new TabelaDePrecosEntity(precoHora: 2m);
 
-            tabelaDePrecos.PrecoHora = 2m;
             registro.DataHoraEntrada = new DateTime(2024, 07, 25, 06, 00, 00);
             registro.DataHoraSaida = new DateTime(2024, 07, 25, 07, 30, 00);
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Estacionamento.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Estacionamento.Domain.Dto
 {
@@ -13,5 +14,16 @@ namespace Estacionamento.Domain.Dto
         public string NomeProprietario { get; set; }
         
         public string Modelo { get; set; }
+
+        internal VeiculoEntity MapToEntity()
+        {
+            return new VeiculoEntity()
+            {
+                Id = this.Id,
+                Placa = this.Placa,
+                Modelo = this.Modelo,
+                NomeProprietario = this.NomeProprietario
+            };
+        }
     }
 }

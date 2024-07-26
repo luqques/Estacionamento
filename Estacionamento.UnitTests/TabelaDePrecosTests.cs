@@ -8,9 +8,8 @@ namespace Estacionamento.UnitTests
         public void Dado_QuantidadeDeHoras_Deve_CalcularPrecoCorretamente()
         {
             //Arrange
-            TabelaDePrecosEntity tabelaDePrecos = new();
+            var tabelaDePrecos = new TabelaDePrecosEntity(precoHora: 2m);
 
-            tabelaDePrecos.PrecoHora = 2;
             int minutos = 90;
 
             //Act
