@@ -22,25 +22,18 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
         public async Task<RegistroEstacionamentoEntity> InserirEntradaVeiculo(RegistroEstacionamentoDto registroDto)
         {
-            try
-            {
-                var resgitro = _mapper.Map<RegistroEstacionamentoEntity>(registroDto);
+            registroDto.TabelaDePrecos = await _tabelaDePrecosRepository.ObterPrecoHoraAtual();
 
-                _context.RegistrosEstacionamento.Add(resgitro);
-                await _context.SaveChangesAsync();
+            var resgitro = _mapper.Map<RegistroEstacionamentoEntity>(registroDto);
 
-                return _mapper.Map<RegistroEstacionamentoEntity>(resgitro);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            _context.RegistrosEstacionamento.Add(resgitro);
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<RegistroEstacionamentoEntity>(resgitro);
         }
 
         public async Task<bool> RemoverVeiculoDoEstacionamento(int veiculoId)
         {
-            TabelaDePrecosEntity tabelaPrecos = await _tabelaDePrecosRepository.ObterPrecoHoraAtual();
-
             var registroEstacionamento = _context.RegistrosEstacionamento
                                                     .Where(v => v.VeiculoId == veiculoId)
                                                     .FirstOrDefault();
@@ -50,7 +43,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
             registroEstacionamento.DataHoraSaida = DateTime.Now;
             registroEstacionamento.CalcularTotalDeHoras();
-            registroEstacionamento.CalcularValorAPagar(tabelaPrecos);
+            registroEstacionamento.CalcularValorAPagar(registroEstacionamento.TabelaDePrecos);
 
             _context.RegistrosEstacionamento.Update(registroEstacionamento);
             

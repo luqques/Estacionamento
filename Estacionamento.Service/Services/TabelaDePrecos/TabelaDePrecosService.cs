@@ -15,9 +15,16 @@ namespace Estacionamento.Service.Services.TabelaDePrecos
 
         public async Task<TabelaDePrecosEntity> AlterarPrecoHora(decimal precoHora)
         {
-            var tabelaPrecos = new TabelaDePrecosDto(precoHora);
+            try
+            {
+                var tabelaPrecos = new TabelaDePrecosDto(precoHora);
 
-            return await _tabelaDePrecosRepository.InserirPrecoHora(tabelaPrecos);
+                return await _tabelaDePrecosRepository.InserirPrecoHora(tabelaPrecos);
+            }
+            catch (Exception)
+            {
+                throw new Exception();
+            }
         }
     }
 }

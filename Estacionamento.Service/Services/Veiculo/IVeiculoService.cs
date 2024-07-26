@@ -6,7 +6,6 @@ namespace Estacionamento.Service.Services.Veiculo
     public interface IVeiculoService
     {
         Task<VeiculoEntity> CadastrarOuAtualizarVeiculo(VeiculoDto veiculoDto);
-
         Task<bool> RemoverVeiculo(int id);
     }
 }
