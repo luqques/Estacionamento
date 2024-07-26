@@ -34,7 +34,7 @@ namespace Estacionamento.Api.Controllers
 
             bool veiculoRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(veiculoId);
 
-            if (!veiculoRemovido)
+            if (!veiculoRemovido) //TODO: Corrigir chegagem se o veículo está ou não no estacionamento, valdando pela DataHoraSaida do registro
                 return NotFound(new { message = "O veículo não se encontra no estacionamento." });
 
             return Ok(new { message = "Registrado saída do veículo com sucesso!" });
