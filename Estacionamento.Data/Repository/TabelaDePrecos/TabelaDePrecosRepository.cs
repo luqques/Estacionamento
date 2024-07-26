@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Estacionamento.Data.Context;
+using Estacionamento.Domain.Dto;
 using Estacionamento.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +17,17 @@ namespace Estacionamento.Data.Repository.TabelaDePrecos
             _mapper = mapper;
         }
 
-        public async Task<TabelaDePrecosEntity> ObterPrecoDaHora()
+        public async Task<TabelaDePrecosEntity> InserirPrecoHora(TabelaDePrecosDto tabelaDePrecosDto)
+        {
+            TabelaDePrecosEntity tabelaPrecos = _mapper.Map<TabelaDePrecosEntity>(tabelaDePrecosDto);
+
+            _context.TabelaDePrecos.Add(tabelaPrecos);
+            await _context.SaveChangesAsync();
+
+            return tabelaPrecos;
+        }
+
+        public async Task<TabelaDePrecosEntity> ObterPrecoHoraAtual()
         {
             decimal precoHoraMinimo = 2m;
 

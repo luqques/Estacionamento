@@ -6,6 +6,7 @@ using Estacionamento.Data.VeiculoRepository;
 using Estacionamento.Domain.Dto;
 using Estacionamento.Domain.Entities;
 using Estacionamento.Service.Services.Estacionamento;
+using Estacionamento.Service.Services.TabelaDePrecos;
 using Estacionamento.Service.Services.Veiculo;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,6 +42,7 @@ namespace Estacionamento.Api
             services.AddScoped<IVeiculoService, VeiculoService>();
 
             services.AddScoped<ITabelaDePrecosRepository, TabelaDePrecosRepository>();
+            services.AddScoped<ITabelaDePrecosService, TabelaDePrecosService>();
 
             services.AddSingleton(new MapperConfiguration(config =>
             {

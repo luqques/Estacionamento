@@ -32,7 +32,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
         public async Task<bool> RemoverVeiculoDoEstacionamento(int veiculoId)
         {
-            TabelaDePrecosEntity tabelaPrecos = await _tabelaDePrecosRepository.ObterPrecoDaHora();
+            TabelaDePrecosEntity tabelaPrecos = await _tabelaDePrecosRepository.ObterPrecoHoraAtual();
 
             var registroEstacionamento = await _context.RegistrosEstacionamento.FindAsync(veiculoId);
 
@@ -50,7 +50,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
         public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoDetalhado()
         {
-            var tabelaPreco = await _tabelaDePrecosRepository.ObterPrecoDaHora();
+            var tabelaPreco = await _tabelaDePrecosRepository.ObterPrecoHoraAtual();
 
             var registros = await _context.RegistrosEstacionamento
                 .Select(r => new RegistroEstacionamentoDetalhadoDto
