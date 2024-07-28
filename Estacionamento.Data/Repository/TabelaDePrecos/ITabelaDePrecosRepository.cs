@@ -7,5 +7,6 @@ namespace Estacionamento.Data.Repository.TabelaDePrecos
     {
         Task<TabelaDePrecosEntity> InserirPrecoHora(TabelaDePrecosDto tabelaDePrecosDto);
         Task<TabelaDePrecosEntity> ObterPrecoHoraAtual();
+        Task<TabelaDePrecosEntity> ObterTabelaDePrecos(int id);
     }
 }

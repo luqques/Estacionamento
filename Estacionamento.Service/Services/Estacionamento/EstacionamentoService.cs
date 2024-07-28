@@ -36,11 +36,11 @@ namespace Estacionamento.Service.Services.Estacionamento
             }
         }
 
-        public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosDetalhado()
+        public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosAtivosDetalhado()
         {
             try
             {
-                return await _estacionamentoRespository.ListarRegistrosEstacionamentoDetalhado();
+                return await _estacionamentoRespository.ListarRegistrosEstacionamentoAtivosDetalhado();
             }
             catch (Exception ex)
             {

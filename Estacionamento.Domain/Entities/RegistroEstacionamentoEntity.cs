@@ -29,7 +29,7 @@ namespace Estacionamento.Domain.Entities
             set 
             {
                 _tabelaDePrecosEntity = value;
-                TabelaDePrecosId = value.Id;
+                TabelaDePrecosId = _tabelaDePrecosEntity.Id;
             }
         }
 

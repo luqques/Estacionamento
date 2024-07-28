@@ -7,6 +7,6 @@ namespace Estacionamento.Service.Services.Estacionamento
     {
         Task<RegistroEstacionamentoEntity> RegistrarEntradaDeVeiculo(VeiculoDto veiculoDto);
         Task<bool> RegistrarSaidaDeVeiculo(int veiculoId);
-        Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosDetalhado();
+        Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosAtivosDetalhado();
     }
 }

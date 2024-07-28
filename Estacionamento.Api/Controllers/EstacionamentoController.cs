@@ -43,7 +43,7 @@ namespace Estacionamento.Api.Controllers
         [HttpGet("listar-registros")]
         public async Task<ActionResult<IEnumerable<RegistroEstacionamentoDetalhadoDto>>> ListarRegistros()
         {
-            var registros = await _estacionamentoService.ListarRegistrosDetalhado();
+            var registros = await _estacionamentoService.ListarRegistrosAtivosDetalhado();
             return Ok(registros);
         }
     }

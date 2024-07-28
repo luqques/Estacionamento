@@ -37,5 +37,10 @@ namespace Estacionamento.Data.Repository.TabelaDePrecos
 
             return tabelaDePrecos ?? new TabelaDePrecosEntity(precoHoraMinimo);
         }
+
+        public async Task<TabelaDePrecosEntity> ObterTabelaDePrecos(int id)
+        {
+            return await _context.TabelaDePrecos.FirstOrDefaultAsync(tp => tp.Id == id);
+        }
     }
 }
