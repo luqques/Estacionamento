@@ -50,7 +50,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
                                 Placa = Veiculo.Placa,
                                 DataHoraEntrada = RegistroEstacionamento.DataHoraEntrada,
                                 DataHoraSaida = RegistroEstacionamento.DataHoraSaida,
-                                Duracao = RegistroEstacionamento.Duracao.ToString(),
+                                Duracao = RegistroEstacionamento.Duracao,
                                 TempoCobradoHoras = (int)RegistroEstacionamento.Duracao.Value.TotalMinutes / 60,
                                 PrecoHora = TabelaDePrecos.PrecoHora,
                                 ValorPagar = RegistroEstacionamento.ValorPagar

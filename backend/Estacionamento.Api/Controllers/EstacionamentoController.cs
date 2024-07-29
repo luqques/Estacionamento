@@ -36,22 +36,36 @@ namespace Estacionamento.Api.Controllers
         [HttpDelete("registrar-saida/{placa}")]
         public async Task<ActionResult<bool>> SaidaVeiculo(string placa)
         {
-            if (string.IsNullOrWhiteSpace(placa))
-                return BadRequest();
+            try
+            {
+                if (string.IsNullOrWhiteSpace(placa))
+                    return BadRequest();
 
-            bool veiculoRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(placa.ToUpper());
+                bool veiculoRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(placa.ToUpper());
 
-            if (!veiculoRemovido)
-                return NotFound(new { message = "O veículo não se encontra no estacionamento." });
+                if (!veiculoRemovido)
+                    return NotFound(new { message = "O veículo não se encontra no estacionamento." });
 
-            return Ok(new { message = "Saída registrada com sucesso!" });
+                return Ok(new { message = "Saída registrada com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
         [HttpGet("listar-registros")]
         public async Task<ActionResult<IEnumerable<RegistroEstacionamentoDetalhadoDto>>> ListarRegistros(bool registrosAtivos)
         {
-            var registros = await _estacionamentoService.ListarRegistrosAtivosDetalhado(registrosAtivos);
-            return Ok(registros);
+            try
+            {
+                var registros = await _estacionamentoService.ListarRegistrosAtivosDetalhado(registrosAtivos);
+                return Ok(registros);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }

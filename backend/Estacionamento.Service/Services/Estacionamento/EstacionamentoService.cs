@@ -41,41 +41,27 @@ namespace Estacionamento.Service.Services.Estacionamento
 
         public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosAtivosDetalhado(bool registrosAtivos)
         {
-            try
-            {
-                return await _estacionamentoRespository.ListarRegistrosEstacionamentoAtivosDetalhado(registrosAtivos);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return await _estacionamentoRespository.ListarRegistrosEstacionamentoAtivosDetalhado(registrosAtivos);
         }
 
         public async Task<bool> RegistrarSaidaDeVeiculo(string placa)
         {
-            ArgumentNullException.ThrowIfNullOrWhiteSpace(placa);
+            ArgumentException.ThrowIfNullOrWhiteSpace(nameof(placa));
 
-            try
-            {
-                RegistroEstacionamentoEntity registroEstacionamento = await _estacionamentoRespository.ObterRegistroAtivo(placa);
+            RegistroEstacionamentoEntity registroEstacionamento = await _estacionamentoRespository.ObterRegistroAtivo(placa);
 
-                if (registroEstacionamento is null)
-                    return false;
+            if (registroEstacionamento is null)
+                throw new Exception($"O veículo de placa {placa} não está presente no estacionamento.");
 
-                TabelaDePrecosEntity tabelaDePrecos = await _tabelaDePrecosRepository.ObterTabelaDePrecos(registroEstacionamento.TabelaDePrecosId);
+            TabelaDePrecosEntity tabelaDePrecos = await _tabelaDePrecosRepository.ObterTabelaDePrecos(registroEstacionamento.TabelaDePrecosId);
 
-                registroEstacionamento.DataHoraSaida = DateTime.Now;
+            registroEstacionamento.DataHoraSaida = DateTime.Now;
 
-                registroEstacionamento.CalcularTotalDeHoras();
+            registroEstacionamento.CalcularTotalDeHoras();
 
-                registroEstacionamento.CalcularValorAPagar(tabelaDePrecos);
+            registroEstacionamento.CalcularValorAPagar(tabelaDePrecos);
 
-                return await _estacionamentoRespository.RemoverVeiculoDoEstacionamento(registroEstacionamento);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            return await _estacionamentoRespository.RemoverVeiculoDoEstacionamento(registroEstacionamento);
         }
     }
 }
