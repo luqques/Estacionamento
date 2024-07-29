@@ -17,7 +17,7 @@ namespace Estacionamento.UnitTests
             registro.CalcularTotalDeHoras();
 
             //Assert
-            Assert.True(registro.MinutosTotais == 90);
+            Assert.True(registro.Duracao.Value.TotalMinutes == 90);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace Estacionamento.UnitTests
             registro.CalcularValorAPagar(tabelaDePrecos);
 
             //Assert
-            Assert.True(registro.ValorPagar == 5m);
+            Assert.Equal(registro.ValorPagar, 3m);
         }
     }
 }

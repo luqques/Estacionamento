@@ -22,20 +22,17 @@ namespace Estacionamento.Data.Repository.TabelaDePrecos
             TabelaDePrecosEntity tabelaPrecos = _mapper.Map<TabelaDePrecosEntity>(tabelaDePrecosDto);
 
             _context.TabelaDePrecos.Add(tabelaPrecos);
+
             await _context.SaveChangesAsync();
 
             return tabelaPrecos;
         }
 
-        public async Task<TabelaDePrecosEntity> ObterPrecoHoraAtual()
+        public async Task<TabelaDePrecosEntity> ObterTabelaDePrecosAtual()
         {
-            decimal precoHoraMinimo = 2m;
-
-            var tabelaDePrecos = await _context.TabelaDePrecos
-                .OrderByDescending(tp => tp.Id)
-                .FirstOrDefaultAsync();
-
-            return tabelaDePrecos ?? new TabelaDePrecosEntity(precoHoraMinimo);
+            return await _context.TabelaDePrecos
+                                .OrderByDescending(tp => tp.Id)
+                                .FirstOrDefaultAsync();
         }
 
         public async Task<TabelaDePrecosEntity> ObterTabelaDePrecos(int id)

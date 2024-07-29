@@ -5,7 +5,15 @@ namespace Estacionamento.Domain.Dto
 {
     public class VeiculoDto
     {
+        public VeiculoDto(string placa, string nomeProprietario, string modelo)
+        {
+            Placa = placa.ToUpper();
+            NomeProprietario = nomeProprietario;
+            Modelo = modelo;
+        }
+
         [Required]
+        [StringLength(10, ErrorMessage = "A placa ultrapassou o limite de 10 caracteres.")]
         public string Placa { get; set; }
         
         public string NomeProprietario { get; set; }

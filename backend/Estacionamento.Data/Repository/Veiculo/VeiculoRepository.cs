@@ -33,9 +33,8 @@ namespace Estacionamento.Data.VeiculoRepository
                 .Where(v => v.Placa == veiculoDto.Placa)
                 .FirstOrDefault();
 
-            veiculo = veiculoDto.MapToEntity();
-
             _context.Veiculos.Update(veiculo);
+
             await _context.SaveChangesAsync();
             
             return _mapper.Map<VeiculoEntity>(veiculo);

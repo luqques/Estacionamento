@@ -30,6 +30,8 @@ namespace Estacionamento.Domain.Entities
         public decimal CalcularPreco(int minutos)
         {
             decimal precoTotal = 0;
+            int horasTotais = minutos / 60;
+            int minutosAdicionais = minutos % 60;
 
             if (minutos <= 30)
             {
@@ -37,15 +39,10 @@ namespace Estacionamento.Domain.Entities
             }
             else
             {
-                precoTotal = PrecoHora;
+                precoTotal = PrecoHora * horasTotais;
 
-                minutos -= 60;
-
-                if (minutos > 0)
-                {
-                    int horasAdicionais = (minutos + 9) / 60;
-                    precoTotal += horasAdicionais * PrecoHoraAdicional;
-                }
+                if (minutosAdicionais > 10)
+                    precoTotal += PrecoHoraAdicional;
             }
 
             return precoTotal;

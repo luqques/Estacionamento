@@ -19,31 +19,38 @@ namespace Estacionamento.Api.Controllers
         public async Task<ActionResult<VeiculoDto>> EntradaVeiculo([FromBody] VeiculoDto veiculoDto)
         {
             if (veiculoDto is null)
-                return BadRequest();
+                return BadRequest(new { message = "Insira um veículo." });
 
-            var veiculo = await _estacionamentoService.RegistrarEntradaDeVeiculo(veiculoDto);
+            try
+            {
+                var veiculo = await _estacionamentoService.RegistrarEntradaDeVeiculo(veiculoDto);
 
-            return Ok(new { message = "Registrado entrada do veículo com sucesso!"});
+                return Ok(new { message = "Entrada do veículo registrada com sucesso!" });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        [HttpDelete("registrar-saida/{veiculoId}")]
-        public async Task<ActionResult<bool>> SaidaVeiculo(int veiculoId)
+        [HttpDelete("registrar-saida/{placa}")]
+        public async Task<ActionResult<bool>> SaidaVeiculo(string placa)
         {
-            if (veiculoId == 0)
+            if (string.IsNullOrWhiteSpace(placa))
                 return BadRequest();
 
-            bool veiculoRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(veiculoId);
+            bool veiculoRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(placa.ToUpper());
 
-            if (!veiculoRemovido) //TODO: Corrigir chegagem se o veículo está ou não no estacionamento, valdando pela DataHoraSaida do registro
+            if (!veiculoRemovido)
                 return NotFound(new { message = "O veículo não se encontra no estacionamento." });
 
-            return Ok(new { message = "Registrado saída do veículo com sucesso!" });
+            return Ok(new { message = "Saída registrada com sucesso!" });
         }
 
         [HttpGet("listar-registros")]
-        public async Task<ActionResult<IEnumerable<RegistroEstacionamentoDetalhadoDto>>> ListarRegistros()
+        public async Task<ActionResult<IEnumerable<RegistroEstacionamentoDetalhadoDto>>> ListarRegistros(bool registrosAtivos)
         {
-            var registros = await _estacionamentoService.ListarRegistrosAtivosDetalhado();
+            var registros = await _estacionamentoService.ListarRegistrosAtivosDetalhado(registrosAtivos);
             return Ok(registros);
         }
     }

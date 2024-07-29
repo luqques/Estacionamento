@@ -17,6 +17,11 @@ namespace Estacionamento.Data.Mapping
                 .HasColumnName("VeiculoId")
                 .HasColumnType("int");
 
+            builder.Property(prop => prop.TabelaDePrecosId)
+                .IsRequired()
+                .HasColumnName("TabelaDePrecosId")
+                .HasColumnType("int");
+
             builder.Property(prop => prop.DataHoraEntrada)
                 .IsRequired()
                 .HasColumnName("DataHoraEntrada")
@@ -30,9 +35,9 @@ namespace Estacionamento.Data.Mapping
                 .HasColumnName("ValorPagar")
                 .HasColumnType("decimal(10,2)");
 
-            builder.Property(prop => prop.MinutosTotais)
-                .HasColumnName("MinutosTotais")
-                .HasColumnType("int");
+            builder.Property(prop => prop.Duracao)
+                .HasColumnName("Duracao")
+                .HasColumnType("time");
         }
     }
 }

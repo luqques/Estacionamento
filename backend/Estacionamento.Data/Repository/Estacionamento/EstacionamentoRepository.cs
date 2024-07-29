@@ -23,54 +23,48 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
         public async Task<RegistroEstacionamentoEntity> InserirEntradaVeiculo(RegistroEstacionamentoDto registroDto)
         {
-            registroDto.TabelaDePrecos = await _tabelaDePrecosRepository.ObterPrecoHoraAtual();
-
             var resgitro = _mapper.Map<RegistroEstacionamentoEntity>(registroDto);
 
             _context.RegistrosEstacionamento.Add(resgitro);
+
             await _context.SaveChangesAsync();
 
             return _mapper.Map<RegistroEstacionamentoEntity>(resgitro);
         }
 
-        public async Task<bool> RemoverVeiculoDoEstacionamento(int veiculoId)
+        public async Task<bool> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento)
         {
-            var registroEstacionamento = _context.RegistrosEstacionamento
-                                                    .Where(v => v.VeiculoId == veiculoId)
-                                                    .FirstOrDefault();
-
-            if (registroEstacionamento is null)
-                return false;
-
-            TabelaDePrecosEntity tabelaDePrecos = await _tabelaDePrecosRepository.ObterTabelaDePrecos(registroEstacionamento.TabelaDePrecosId);
-
-            registroEstacionamento.DataHoraSaida = DateTime.Now;
-            registroEstacionamento.CalcularTotalDeHoras();
-            registroEstacionamento.CalcularValorAPagar(tabelaDePrecos);
-
             _context.RegistrosEstacionamento.Update(registroEstacionamento);
             
             return (await _context.SaveChangesAsync()) == 1;
         }
 
-        public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoAtivosDetalhado()
+        public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoAtivosDetalhado(bool registrosAtivos)
         {
             var registros = from RegistroEstacionamento in _context.RegistrosEstacionamento
                             join Veiculo in _context.Veiculos on RegistroEstacionamento.VeiculoId equals Veiculo.Id
                             join TabelaDePrecos in _context.TabelaDePrecos on RegistroEstacionamento.TabelaDePrecosId equals TabelaDePrecos.Id
-                            where RegistroEstacionamento.DataHoraSaida == null
+                            where registrosAtivos == true ? (RegistroEstacionamento.DataHoraSaida == null) : (RegistroEstacionamento.DataHoraSaida != null)
                             select new RegistroEstacionamentoDetalhadoDto
                             {
                                 Placa = Veiculo.Placa,
                                 DataHoraEntrada = RegistroEstacionamento.DataHoraEntrada,
                                 DataHoraSaida = RegistroEstacionamento.DataHoraSaida,
-                                Duracao = RegistroEstacionamento.MinutosTotais,
-                                TempoCobradoHoras = RegistroEstacionamento.MinutosTotais / 60,
+                                Duracao = RegistroEstacionamento.Duracao.ToString(),
+                                TempoCobradoHoras = (int)RegistroEstacionamento.Duracao.Value.TotalMinutes / 60,
                                 PrecoHora = TabelaDePrecos.PrecoHora,
                                 ValorPagar = RegistroEstacionamento.ValorPagar
                             };
 
             return await registros.ToListAsync().ConfigureAwait(false);
+        }
+
+        public async Task<RegistroEstacionamentoEntity> ObterRegistroAtivo(string placa)
+        {
+            return await _context.RegistrosEstacionamento
+                                    .Where(v => v.DataHoraSaida == null)
+                                    .Where(v => v.Veiculo.Placa.Equals(placa))
+                                    .FirstOrDefaultAsync();
         }
     }
 }

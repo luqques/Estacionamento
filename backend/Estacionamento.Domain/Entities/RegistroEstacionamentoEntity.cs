@@ -43,24 +43,23 @@ namespace Estacionamento.Domain.Entities
 
         public decimal? ValorPagar { get; private set; }
 
-        public int? MinutosTotais { get; private set; }
+        public TimeSpan? Duracao { get; private set; }
 
         public void CalcularTotalDeHoras()
         {
             if (DataHoraSaida is null)
                 throw new ArgumentNullException("O veículo ainda não saiu do estacionamento.");
 
-            TimeSpan total = DataHoraSaida.Value - DataHoraEntrada;
-            MinutosTotais = (int)total.TotalMinutes;
+            Duracao = DataHoraSaida.Value - DataHoraEntrada;
         }
 
         public void CalcularValorAPagar(TabelaDePrecosEntity tabelaDePrecos)
         {
-            if (MinutosTotais is null)
+            if (Duracao is null)
                 throw new InvalidOperationException("Os minutos totais não foram calculados.");
 
             TabelaDePrecos = tabelaDePrecos;
-            ValorPagar = tabelaDePrecos.CalcularPreco(MinutosTotais.Value);
+            ValorPagar = TabelaDePrecos.CalcularPreco((int)Duracao.Value.TotalMinutes);
         }
     }
 }

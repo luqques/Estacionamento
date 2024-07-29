@@ -1,4 +1,4 @@
-﻿using Estacionamento.Domain.Dto;
+﻿using Estacionamento.Domain.Entities;
 using Estacionamento.Service.Services.TabelaDePrecos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +16,14 @@ namespace Estacionamento.Api.Controllers
         }
 
         [HttpPost("alterar-preco")]
-        public async Task<ActionResult<VeiculoDto>> CadastrarVeiculo(decimal precoHora)
+        public async Task<ActionResult<TabelaDePrecosEntity>> AlterarPrecoHora(decimal precoHora)
         {
             if (precoHora <= 0m)
-                return BadRequest("Não é possivel cadastrar um preço zerado.");
+                return BadRequest("Por favor, insira um valor maior que zero.");
 
-            var veiculo = await _tabelaDePrecosService.AlterarPrecoHora(precoHora);
+            var tabelaDePrecos = await _tabelaDePrecosService.AlterarPrecoHora(precoHora);
 
-            return Ok(veiculo);
+            return Ok(new { message = "Preços alterados com sucesso!" });
         }
     }
 }

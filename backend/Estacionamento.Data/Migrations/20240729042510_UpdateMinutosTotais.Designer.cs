@@ -4,6 +4,7 @@ using Estacionamento.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Estacionamento.Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    partial class MySqlContextModelSnapshot : ModelSnapshot
+    [Migration("20240729042510_UpdateMinutosTotais")]
+    partial class UpdateMinutosTotais
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +46,7 @@ namespace Estacionamento.Data.Migrations
                         .HasColumnName("Duracao");
 
                     b.Property<int>("TabelaDePrecosId")
-                        .HasColumnType("int")
-                        .HasColumnName("TabelaDePrecosId");
+                        .HasColumnType("int");
 
                     b.Property<decimal?>("ValorPagar")
                         .HasColumnType("decimal(10,2)")

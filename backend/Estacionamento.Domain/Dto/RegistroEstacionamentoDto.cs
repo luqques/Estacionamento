@@ -39,10 +39,5 @@ namespace Estacionamento.Domain.Dto
 
         [Required]
         public DateTime DataHoraEntrada { get; set; } = DateTime.Now;
-
-        public void AdicionarVeiculo(VeiculoEntity veiculo)
-        {
-            Veiculo = veiculo;
-        }
     }
 }
