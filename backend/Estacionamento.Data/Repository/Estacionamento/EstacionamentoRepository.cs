@@ -41,7 +41,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
 
         public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoAtivosDetalhado(bool registrosAtivos)
         {
-            var registros = from RegistroEstacionamento in _context.RegistrosEstacionamento
+            IQueryable<RegistroEstacionamentoDetalhadoDto> registros = from RegistroEstacionamento in _context.RegistrosEstacionamento
                             join Veiculo in _context.Veiculos on RegistroEstacionamento.VeiculoId equals Veiculo.Id
                             join TabelaDePrecos in _context.TabelaDePrecos on RegistroEstacionamento.TabelaDePrecosId equals TabelaDePrecos.Id
                             where registrosAtivos == true ? (RegistroEstacionamento.DataHoraSaida == null) : (RegistroEstacionamento.DataHoraSaida != null)
@@ -51,12 +51,13 @@ namespace Estacionamento.Data.Repository.Estacionamento
                                 DataHoraEntrada = RegistroEstacionamento.DataHoraEntrada,
                                 DataHoraSaida = RegistroEstacionamento.DataHoraSaida,
                                 Duracao = RegistroEstacionamento.Duracao,
-                                TempoCobradoHoras = (int)RegistroEstacionamento.Duracao.Value.TotalMinutes / 60,
+                                TempoCobradoHoras = (int)RegistroEstacionamento.Duracao.Value.TotalHours == 0 ? 1 : (int)RegistroEstacionamento.Duracao.Value.TotalHours,
                                 PrecoHora = TabelaDePrecos.PrecoHora,
                                 ValorPagar = RegistroEstacionamento.ValorPagar
                             };
 
-            return await registros.ToListAsync().ConfigureAwait(false);
+            return await registros.ToListAsync();
+            //return await registros.ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<RegistroEstacionamentoEntity> ObterRegistroAtivo(string placa)

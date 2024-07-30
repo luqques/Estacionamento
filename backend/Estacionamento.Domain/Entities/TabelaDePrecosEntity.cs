@@ -4,15 +4,15 @@ namespace Estacionamento.Domain.Entities
 {
     public class TabelaDePrecosEntity : BaseEntity
     {
-        public TabelaDePrecosEntity(decimal precoHora)
+        public TabelaDePrecosEntity(decimal? precoHora)
         {
             PrecoHora = precoHora;
             DataHoraCadastro = DateTime.Now;
         }
 
-        private decimal _precoHora;
+        private decimal? _precoHora;
 
-        public decimal PrecoHora
+        public decimal? PrecoHora
         {
             get { return _precoHora; }
             set
@@ -22,14 +22,14 @@ namespace Estacionamento.Domain.Entities
             }
         }
 
-        public decimal PrecoHoraAdicional { get; private set; }
+        public decimal? PrecoHoraAdicional { get; private set; }
 
         [Required]
         public DateTime DataHoraCadastro { get; set; }
 
-        public decimal CalcularPreco(int minutos)
+        public decimal? CalcularPreco(int minutos)
         {
-            decimal precoTotal = 0;
+            decimal? precoTotal = 0;
             int horasTotais = minutos / 60;
             int minutosAdicionais = minutos % 60;
 

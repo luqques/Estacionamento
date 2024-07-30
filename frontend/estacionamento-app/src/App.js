@@ -4,13 +4,15 @@ import Header from './components/Header';
 import VehicleList from './components/VehicleList';
 import Filter from './components/Filter';
 import Button from './components/Button';
-import Modal from './components/Modal';
+import AddVehicleModal from './components/AddVehicleModal';
+import DeleteVehicleModal from './components/DeleteVehicleModal';
 import { getVehicles, postVehicleEntry, deleteVehicleExit } from './services/api';
 
 const App = () => {
   const [vehicles, setVehicles] = useState([]);
   const [filter, setFilter] = useState('');
-  const [modalOpen, setModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedPlate, setSelectedPlate] = useState(null);
 
   useEffect(() => {
@@ -28,15 +30,14 @@ const App = () => {
 
   const handleAddVehicle = async (vehicleData) => {
     await postVehicleEntry(vehicleData);
-    fetchVehicles();
-    setModalOpen(false);
+    //fetchVehicles();
   };
 
   const handleRemoveVehicle = async () => {
     if (selectedPlate) {
       await deleteVehicleExit(selectedPlate);
       fetchVehicles();
-      setSelectedPlate(null); // Limpar a seleção após a remoção
+      setSelectedPlate(null);
     }
   };
 
@@ -47,16 +48,22 @@ const App = () => {
   return (
     <div>
       <Header />
-      <div className="m-10">
-        <Button onClick={() => setModalOpen(true)} color="green">Marcar Entrada</Button>
-        <Button onClick={() => setModalOpen(true)} color="red" disabled={!selectedPlate}>
-          Marcar Saída
-        </Button>
+      <div className='m-10'>
+        <Button onClick={() => setAddModalOpen(true)} color="green">Marcar Entrada</Button>
+        <Button onClick={() => setDeleteModalOpen(true)} color="red" disabled={!selectedPlate}>Marcar Saída</Button>
         <Filter onChange={handleFilterChange} />
+        <AddVehicleModal
+          isOpen={addModalOpen}
+          onClose={() => setAddModalOpen(false)}
+          onAddVehicle={handleAddVehicle}
+        />
+        <DeleteVehicleModal
+          isOpen={deleteModalOpen}
+          onClose={() => setDeleteModalOpen(false)}
+          onDeleteVehicle={handleRemoveVehicle}
+          selectedPlate={selectedPlate}
+        />
         <VehicleList vehicles={filteredVehicles} setSelectedPlate={setSelectedPlate} />
-        <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-          {/* Formulário de entrada de veículo */}
-        </Modal>
       </div>
     </div>
   );

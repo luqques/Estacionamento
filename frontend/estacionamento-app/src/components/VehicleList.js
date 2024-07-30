@@ -1,4 +1,3 @@
-// src/components/VehicleList.js
 import React from 'react';
 
 const VehicleList = ({ vehicles, setSelectedPlate }) => {

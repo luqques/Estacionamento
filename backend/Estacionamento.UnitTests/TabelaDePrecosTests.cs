@@ -17,7 +17,7 @@ namespace Estacionamento.UnitTests
             var tabelaDePrecos = new TabelaDePrecosEntity(precoHora: 2m);
 
             //Act
-            decimal precoTotal = tabelaDePrecos.CalcularPreco(minutos);
+            decimal? precoTotal = tabelaDePrecos.CalcularPreco(minutos);
 
             //Assert
             Assert.Equal(precoTotalExpected, precoTotal);
