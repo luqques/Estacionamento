@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-const DeleteVehicleModal = ({ isOpen, onClose, onDeleteVehicle }) => {
+const DeleteVehicleModal = ({ isOpen, onClose, onRemoveVeiculo }) => {
 
   const [placa, setPlaca] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onDeleteVehicle(placa);
+    onRemoveVeiculo(placa);
     onClose();
   };
 
@@ -18,6 +18,7 @@ const DeleteVehicleModal = ({ isOpen, onClose, onDeleteVehicle }) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
+          name="placa"
           placeholder="Placa do veículo"
           value={placa}
           onChange={(e) => setPlaca(e.target.value)}

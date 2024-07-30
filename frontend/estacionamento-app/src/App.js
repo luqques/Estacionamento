@@ -13,7 +13,7 @@ const App = () => {
   const [filter, setFilter] = useState('');
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedPlate, setSelectedPlate] = useState(null);
+  const [placa, setSelectedPlate] = useState(null);
   const [registrosAtivos, setRegistrosAtivos] = useState(true);
 
   useEffect(() => {
@@ -38,12 +38,10 @@ const App = () => {
     fetchVehicles();
   };
 
-  const handleRemoveVehicle = async () => {
-    if (selectedPlate) {
-      await deleteVehicleExit(selectedPlate);
-      fetchVehicles();
-      setSelectedPlate(null);
-    }
+  const handleRemoveVeiculo = async (placa) => {
+    await deleteVehicleExit(placa);
+    fetchVehicles();
+    setSelectedPlate(null);
   };
 
   const filteredVehicles = vehicles.filter(vehicle => 
@@ -55,9 +53,9 @@ const App = () => {
       <Header />
       <div className='m-10'>
         <Button onClick={() => setAddModalOpen(true)} color="green">Marcar Entrada</Button>
-        <Button onClick={() => setDeleteModalOpen(true)} color="red" disabled={!selectedPlate}>Marcar Saída</Button>
+        <Button onClick={() => setDeleteModalOpen(true)} color="red" disabled={!placa}>Marcar Saída</Button>
         <Filter onChange={handleFilterChange} />
-        <Toggle registrosAtivos={registrosAtivos} onToggle={handleToggleChange}/> Veículos no estacionamento
+        <Toggle registrosAtivos={registrosAtivos} onToggle={handleToggleChange}/> Veículos dentro do estacionamento
         <AddVehicleModal
           isOpen={addModalOpen}
           onClose={() => setAddModalOpen(false)}
@@ -66,8 +64,7 @@ const App = () => {
         <DeleteVehicleModal
           isOpen={deleteModalOpen}
           onClose={() => setDeleteModalOpen(false)}
-          onDeleteVehicle={handleRemoveVehicle}
-          selectedPlate={selectedPlate}
+          onRemoveVeiculo={handleRemoveVeiculo}
         />
         <VehicleList vehicles={filteredVehicles} setSelectedPlate={setSelectedPlate} />
       </div>
