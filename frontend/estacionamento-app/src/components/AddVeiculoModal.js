@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-const AddVehicleModal = ({ isOpen, onClose, onAddVehicle }) => {
+const AddVeiculoModal = ({ isOpen, onClose, onAddVehicle }) => {
 
-  const [vehicleData, setVehicleData] = useState({
+  const [veiculoData, setveiculoData] = useState({
     placa: '',
     nomeProprietario: '',
     modelo: '',
@@ -11,12 +11,12 @@ const AddVehicleModal = ({ isOpen, onClose, onAddVehicle }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setVehicleData({ ...vehicleData, [name]: value });
+    setveiculoData({ ...veiculoData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddVehicle(vehicleData);
+    onAddVehicle(veiculoData);
     onClose();
   };
 
@@ -28,7 +28,7 @@ const AddVehicleModal = ({ isOpen, onClose, onAddVehicle }) => {
           type="text"
           name="placa"
           placeholder="Placa do veículo"
-          value={vehicleData.placa}
+          value={veiculoData.placa}
           onChange={handleChange}
           className="border rounded w-full py-2 px-3 mb-4"
         />
@@ -36,7 +36,7 @@ const AddVehicleModal = ({ isOpen, onClose, onAddVehicle }) => {
           type="text"
           name="nomeProprietario"
           placeholder="Nome do proprietário"
-          value={vehicleData.nomeProprietario}
+          value={veiculoData.nomeProprietario}
           onChange={handleChange}
           className="border rounded w-full py-2 px-3 mb-4"
         />
@@ -44,7 +44,7 @@ const AddVehicleModal = ({ isOpen, onClose, onAddVehicle }) => {
           type="text"
           name="modelo"
           placeholder="Modelo do veículo"
-          value={vehicleData.modelo}
+          value={veiculoData.modelo}
           onChange={handleChange}
           className="border rounded w-full py-2 px-3 mb-4"
         />
@@ -58,4 +58,4 @@ const AddVehicleModal = ({ isOpen, onClose, onAddVehicle }) => {
   );
 };
 
-export default AddVehicleModal;
+export default AddVeiculoModal;

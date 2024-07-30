@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API_URL = 'https://localhost:4440/api/v1';
 
-export const getVehicles = async (registrosAtivos) => {
+export const getRegistrosEstacionamento = async (registrosAtivos) => {
   try {
     const response = await axios.get(`${API_URL}/registroEstacionamento/listar-registros`, {
       params: { registrosAtivos }
@@ -14,12 +14,12 @@ export const getVehicles = async (registrosAtivos) => {
   }
 };
 
-export const postVehicleEntry = async (vehicleData) => {
+export const postEntradaVeiculo = async (veiculoData) => {
   try {
     const response = await axios({
       method: 'POST',
       url: `${API_URL}/registroEstacionamento/registrar-entrada`,
-      data: vehicleData,
+      data: veiculoData,
       headers: {
         'content-type': 'application/json',
       },
@@ -31,7 +31,7 @@ export const postVehicleEntry = async (vehicleData) => {
   }
 };
 
-export const deleteVehicleExit = async (placaVeiculo) => {
+export const deleteSaidaVeiculo = async (placaVeiculo) => {
   try {
     const response = await axios({
       method: 'DELETE',
@@ -43,6 +43,23 @@ export const deleteVehicleExit = async (placaVeiculo) => {
     return response.data;
   } catch (error) {
     console.error('Erro ao remover veículo do estacionamento: ', error);
+    return null;
+  }
+};
+
+export const postTabelaDePrecos = async (preco) => {
+  try {
+    const response = await axios({
+      method: 'POST',
+      url: `${API_URL}/registroEstacionamento/registrar-entrada`,
+      data: veiculoData,
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao adicionar veículo ao estacionamento: ', error);
     return null;
   }
 };

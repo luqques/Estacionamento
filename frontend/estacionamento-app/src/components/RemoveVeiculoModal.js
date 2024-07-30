@@ -1,8 +1,7 @@
-// src/components/DeleteVehicleModal.js
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-const DeleteVehicleModal = ({ isOpen, onClose, onRemoveVeiculo }) => {
+const RemoveVeiculoModal = ({ isOpen, onClose, onRemoveVeiculo }) => {
 
   const [placa, setPlaca] = useState('');
 
@@ -34,4 +33,4 @@ const DeleteVehicleModal = ({ isOpen, onClose, onRemoveVeiculo }) => {
   );
 };
 
-export default DeleteVehicleModal;
+export default RemoveVeiculoModal;

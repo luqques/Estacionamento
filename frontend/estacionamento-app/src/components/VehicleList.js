@@ -1,7 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 
-const VehicleList = ({ vehicles }) => {
+const VehicleList = ({ veiculos }) => {
 
   const formatDate = (dateString) => {
     if (!dateString) return null;
@@ -30,7 +30,7 @@ const VehicleList = ({ vehicles }) => {
         </tr>
       </thead>
       <tbody>
-        {vehicles.map((vehicle) => (
+        {veiculos.map((vehicle) => (
           <tr key={vehicle.placa} className="hover:bg-gray-100">
             <td className="px-4 py-2 border">{vehicle.placa}</td>
             <td className="px-4 py-2 border">{formatDate(vehicle.dataHoraEntrada)}</td>

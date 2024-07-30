@@ -3,13 +3,13 @@ import Header from './components/Header';
 import VehicleList from './components/VehicleList';
 import Filter from './components/Filter';
 import Button from './components/Button';
-import AddVehicleModal from './components/AddVehicleModal';
-import DeleteVehicleModal from './components/DeleteVehicleModal';
+import AddVeiculoModal from './components/AddVeiculoModal';
+import RemoveVeiculoModal from './components/RemoveVeiculoModal';
 import Toggle from './components/Toggle';
-import { getVehicles, postVehicleEntry, deleteVehicleExit } from './services/api';
+import { getRegistrosEstacionamento, postEntradaVeiculo, deleteSaidaVeiculo } from './services/api';
 
 const App = () => {
-  const [vehicles, setVehicles] = useState([]);
+  const [veiculos, setVeiculos] = useState([]);
   const [filter, setFilter] = useState('');
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -17,12 +17,12 @@ const App = () => {
   const [registrosAtivos, setRegistrosAtivos] = useState(true);
 
   useEffect(() => {
-    fetchVehicles();
+    fetchVeiculos();
   }, [registrosAtivos]);
 
-  const fetchVehicles = async () => {
-    const data = await getVehicles(registrosAtivos);
-    setVehicles(data);
+  const fetchVeiculos = async () => {
+    const data = await getRegistrosEstacionamento(registrosAtivos);
+    setVeiculos(data);
   };
 
   const handleToggleChange = () => {
@@ -33,18 +33,18 @@ const App = () => {
     setFilter(newFilter);
   };
 
-  const handleAddVehicle = async (vehicleData) => {
-    await postVehicleEntry(vehicleData);
-    fetchVehicles();
+  const handleAddVehicle = async (veiculoData) => {
+    await postEntradaVeiculo(veiculoData);
+    fetchVeiculos();
   };
 
   const handleRemoveVeiculo = async (placa) => {
-    await deleteVehicleExit(placa);
-    fetchVehicles();
+    await deleteSaidaVeiculo(placa);
+    fetchVeiculos();
     setSelectedPlate(null);
   };
 
-  const filteredVehicles = vehicles.filter(vehicle => 
+  const filteredVeiculos = veiculos.filter(vehicle => 
     vehicle.placa.toLowerCase().includes(filter.toLowerCase())
   );
 
@@ -56,17 +56,17 @@ const App = () => {
         <Button onClick={() => setDeleteModalOpen(true)} color="red" disabled={!placa}>Marcar Saída</Button>
         <Filter onChange={handleFilterChange} />
         <Toggle registrosAtivos={registrosAtivos} onToggle={handleToggleChange}/> Veículos dentro do estacionamento
-        <AddVehicleModal
+        <AddVeiculoModal
           isOpen={addModalOpen}
           onClose={() => setAddModalOpen(false)}
           onAddVehicle={handleAddVehicle}
         />
-        <DeleteVehicleModal
+        <RemoveVeiculoModal
           isOpen={deleteModalOpen}
           onClose={() => setDeleteModalOpen(false)}
           onRemoveVeiculo={handleRemoveVeiculo}
         />
-        <VehicleList vehicles={filteredVehicles} setSelectedPlate={setSelectedPlate} />
+        <VehicleList veiculos={filteredVeiculos} setSelectedPlate={setSelectedPlate} />
       </div>
     </div>
   );
