@@ -6,7 +6,7 @@ const AddVehicleModal = ({ isOpen, onClose, onAddVehicle }) => {
   const [vehicleData, setVehicleData] = useState({
     placa: '',
     nomeProprietario: '',
-    modeloVeiculo: '',
+    modelo: '',
   });
 
   const handleChange = (e) => {

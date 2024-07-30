@@ -23,6 +23,17 @@ namespace Estacionamento.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
+
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -63,11 +74,14 @@ namespace Estacionamento.Api
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseDeveloperExceptionPage();
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAll");
 
             app.UseAuthorization();
 

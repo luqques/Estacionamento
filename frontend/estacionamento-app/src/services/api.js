@@ -16,24 +16,15 @@ export const getVehicles = async (inParking = true) => {
 
 export const postVehicleEntry = async (vehicleData) => {
   try {
-
-    console.log(vehicleData)
-
     const response = await axios({
-      method: 'post',
+      method: 'POST',
       url: `${API_URL}/registroEstacionamento/registrar-entrada`,
       data: vehicleData,
       headers: {
-        'content-type': 'text/plain',
+        'content-type': 'application/json',
       },
     })
-
-    //const response = await axios.post(`${API_URL}/registroEstacionamento/registrar-entrada`, vehicleData, Headers: {});
-    
-    console.log(response.data)
-
     return response.data;
-
   } catch (error) {
     console.error('Erro ao adicionar veículo ao estacionamento: ', error);
     return null;
@@ -42,7 +33,13 @@ export const postVehicleEntry = async (vehicleData) => {
 
 export const deleteVehicleExit = async (placaVeiculo) => {
   try {
-    const response = await axios.delete(`${API_URL}/registroEstacionamento/${placaVeiculo}`);
+    const response = await axios({
+      method: 'DELETE',
+      url: `${API_URL}/registroEstacionamento/registrar-saida/${placaVeiculo}`,
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
     return response.data;
   } catch (error) {
     console.error('Erro ao remover veículo do estacionamento: ', error);
