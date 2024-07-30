@@ -5,6 +5,7 @@ import Filter from './components/Filter';
 import Button from './components/Button';
 import AddVehicleModal from './components/AddVehicleModal';
 import DeleteVehicleModal from './components/DeleteVehicleModal';
+import Toggle from './components/Toggle';
 import { getVehicles, postVehicleEntry, deleteVehicleExit } from './services/api';
 
 const App = () => {
@@ -13,14 +14,19 @@ const App = () => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedPlate, setSelectedPlate] = useState(null);
+  const [registrosAtivos, setRegistrosAtivos] = useState(true);
 
   useEffect(() => {
     fetchVehicles();
-  }, []);
+  }, [registrosAtivos]);
 
   const fetchVehicles = async () => {
-    const data = await getVehicles();
+    const data = await getVehicles(registrosAtivos);
     setVehicles(data);
+  };
+
+  const handleToggleChange = () => {
+    setRegistrosAtivos(!registrosAtivos);
   };
 
   const handleFilterChange = (newFilter) => {
@@ -29,7 +35,7 @@ const App = () => {
 
   const handleAddVehicle = async (vehicleData) => {
     await postVehicleEntry(vehicleData);
-    //fetchVehicles();
+    fetchVehicles();
   };
 
   const handleRemoveVehicle = async () => {
@@ -51,6 +57,7 @@ const App = () => {
         <Button onClick={() => setAddModalOpen(true)} color="green">Marcar Entrada</Button>
         <Button onClick={() => setDeleteModalOpen(true)} color="red" disabled={!selectedPlate}>Marcar Saída</Button>
         <Filter onChange={handleFilterChange} />
+        <Toggle registrosAtivos={registrosAtivos} onToggle={handleToggleChange}/> Veículos no estacionamento
         <AddVehicleModal
           isOpen={addModalOpen}
           onClose={() => setAddModalOpen(false)}

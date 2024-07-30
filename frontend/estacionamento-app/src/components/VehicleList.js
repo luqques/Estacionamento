@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 const VehicleList = ({ vehicles }) => {
 
   const formatDate = (dateString) => {
-    if (!dateString) return 'N/A';
+    if (!dateString) return null;
     const date = new Date(dateString);
     return format(date, 'dd/MM/yyyy HH:mm:ss');
   };
@@ -19,7 +19,7 @@ const VehicleList = ({ vehicles }) => {
   return (
     <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden mt-5">
       <thead>
-        <tr>
+        <tr className='bg-blue-300'>
           <th className="px-4 py-2 border">Placa</th>
           <th className="px-4 py-2 border">Horário de Chegada</th>
           <th className="px-4 py-2 border">Horário de Saída</th>

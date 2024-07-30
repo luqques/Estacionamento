@@ -2,14 +2,14 @@ import axios from 'axios';
 
 const API_URL = 'https://localhost:4440/api/v1';
 
-export const getVehicles = async (inParking = true) => {
+export const getVehicles = async (registrosAtivos) => {
   try {
     const response = await axios.get(`${API_URL}/registroEstacionamento/listar-registros`, {
-      params: { inParking }
+      params: { registrosAtivos }
     });
     return response.data;
   } catch (error) {
-    console.error('Erro ao buscar por registros do estacionamento: ', error);
+    console.error('Erro ao buscar por veículos no estacionamento: ', error);
     return [];
   }
 };
