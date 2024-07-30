@@ -1,10 +1,17 @@
-FROM node:18-alpine
+FROM node:18-alpine as build
 
-WORKDIR /estacionamento-app/
+WORKDIR /app
 
-COPY public/ /estacionamento-app/public
-COPY src/ /estacionamento-app/src
-COPY package.json /estacionamento-app/
-
+COPY package.json .
 RUN npm install
-CMD ["npm", "start"]
+
+COPY . .
+RUN npm run build
+
+FROM nginx:stable-alpine
+
+COPY --from=build /estacionamento-app/build /usr/share/nginx/html
+
+EXPOSE 3000
+
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,42 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: /frontend/estacionamento-app/Dockerfile
+    container_name: estacionamento-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - estacionamento-network
+
+  mysql:
+    image: mysql:5.6
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: Estacionamento
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    networks:
+      - estacionamento-network
+
+  backend:
+    build: /Estacionamento.Api
+    container_name: estacionamento-api
+    ports:
+      - "8080:80"
+    environment:
+      ASPNETCORE_URLS: "http://*:80"
+    networks:
+      - estacionamento-network
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-volume:
+    external: true
+
+networks:
+  estacionamento-network:
+    driver: bridge
