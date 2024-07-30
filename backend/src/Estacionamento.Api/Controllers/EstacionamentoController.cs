@@ -19,7 +19,7 @@ namespace Estacionamento.Api.Controllers
         public async Task<ActionResult<VeiculoDto>> EntradaVeiculo([FromBody] VeiculoDto veiculoDto)
         {
             if (veiculoDto is null)
-                return BadRequest(new { message = "Insira um veículo." });
+                return BadRequest(new { message = "Insira os dados referente ao veículo." });
 
             try
             {
