@@ -47,19 +47,19 @@ export const deleteSaidaVeiculo = async (placaVeiculo) => {
   }
 };
 
-export const postTabelaDePrecos = async (preco) => {
-  try {
-    const response = await axios({
-      method: 'POST',
-      url: `${API_URL}/registroEstacionamento/registrar-entrada`,
-      data: veiculoData,
-      headers: {
-        'content-type': 'application/json',
-      },
-    })
-    return response.data;
-  } catch (error) {
-    console.error('Erro ao adicionar veículo ao estacionamento: ', error);
-    return null;
-  }
-};
+// export const postTabelaDePrecos = async (preco) => {
+//   try {
+//     const response = await axios({
+//       method: 'POST',
+//       url: `${API_URL}/registroEstacionamento/registrar-entrada`,
+//       data: veiculoData,
+//       headers: {
+//         'content-type': 'application/json',
+//       },
+//     })
+//     return response.data;
+//   } catch (error) {
+//     console.error('Erro ao adicionar veículo ao estacionamento: ', error);
+//     return null;
+//   }
+// };

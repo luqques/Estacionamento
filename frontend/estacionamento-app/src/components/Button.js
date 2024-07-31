@@ -1,8 +1,8 @@
 import React from 'react';
 
 const Button = ({ onClick, children, color }) => {
-  const bgColor = color === 'green' ? 'bg-green-600' : 'bg-red-600';
-  const hoverColor = color === 'green' ? 'hover:bg-green-700' : 'hover:bg-red-700';
+  const bgColor = color === 'green' ? 'bg-green-700' : 'bg-red-700';
+  const hoverColor = color === 'green' ? 'hover:bg-green-800' : 'hover:bg-red-800';
 
   return (
     <button

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
-import VehicleList from './components/VehicleList';
+import ListaRegistros from './components/ListaRegistros';
 import Filter from './components/Filter';
 import Button from './components/Button';
 import AddVeiculoModal from './components/AddVeiculoModal';
 import RemoveVeiculoModal from './components/RemoveVeiculoModal';
+import VeiculoDetalhesModal from './components/VeiculoDetalhesModal';
 import Toggle from './components/Toggle';
 import { getRegistrosEstacionamento, postEntradaVeiculo, deleteSaidaVeiculo } from './services/api';
 
@@ -15,6 +16,8 @@ const App = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [placa, setSelectedPlate] = useState(null);
   const [registrosAtivos, setRegistrosAtivos] = useState(true);
+  const [veiculoDetalhes, setVeiculoDetalhes] = useState(null);
+  const [detalhesModalOpen, setDetalhesModalOpen] = useState(false);
 
   useEffect(() => {
     fetchVeiculos();
@@ -33,19 +36,23 @@ const App = () => {
     setFilter(newFilter);
   };
 
-  const handleAddVehicle = async (veiculoData) => {
+  const handleAddVeiculo = async (veiculoData) => {
     await postEntradaVeiculo(veiculoData);
     fetchVeiculos();
   };
 
   const handleRemoveVeiculo = async (placa) => {
-    await deleteSaidaVeiculo(placa);
+    const response = await deleteSaidaVeiculo(placa);
     fetchVeiculos();
-    setSelectedPlate(null);
+  
+    if (response) {
+      setVeiculoDetalhes(response);
+      setDetalhesModalOpen(true);
+    }
   };
 
-  const filteredVeiculos = veiculos.filter(vehicle => 
-    vehicle.placa.toLowerCase().includes(filter.toLowerCase())
+  const filteredVeiculos = veiculos.filter(veiculo => 
+    veiculo.placa.toLowerCase().includes(filter.toLowerCase())
   );
 
   return (
@@ -59,14 +66,19 @@ const App = () => {
         <AddVeiculoModal
           isOpen={addModalOpen}
           onClose={() => setAddModalOpen(false)}
-          onAddVehicle={handleAddVehicle}
+          onAddVeiculo={handleAddVeiculo}
         />
         <RemoveVeiculoModal
           isOpen={deleteModalOpen}
           onClose={() => setDeleteModalOpen(false)}
           onRemoveVeiculo={handleRemoveVeiculo}
         />
-        <VehicleList veiculos={filteredVeiculos} setSelectedPlate={setSelectedPlate} />
+        <VeiculoDetalhesModal
+          isOpen={detalhesModalOpen}
+          onClose={() => setDetalhesModalOpen(false)}
+          veiculo={veiculoDetalhes}
+        />
+        <ListaRegistros veiculos={filteredVeiculos} setSelectedPlate={setSelectedPlate} />
       </div>
     </div>
   );
