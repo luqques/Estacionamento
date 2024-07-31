@@ -1,8 +1,8 @@
-# Sistema de Controle de Estacionamento 🚗
+# Sistema de Controle de Estacionamento 🚘
 
 Neste desafio, desenvolvi um pequeno sistema de controle e gerenciamento de entrada e saída de veículos em um estacionamento.
 
-## Tecnologias utilizadas 💻
+## Tecnologias utilizadas
 
 ### Back-end
 - C#
