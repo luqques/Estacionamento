@@ -8,6 +8,6 @@ namespace Estacionamento.Data.Repository.Estacionamento
         Task<RegistroEstacionamentoEntity> InserirEntradaVeiculo(RegistroEstacionamentoDto registroEstacionamento);
         Task<RegistroEstacionamentoEntity> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento);
         Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoAtivosDetalhado(bool registrosAtivos);
-        Task<RegistroEstacionamentoEntity> ObterRegistroAtivo(string placa);
+        Task<RegistroEstacionamentoEntity> ObterRegistroAtivoPorPlaca(string placa);
     }
 }

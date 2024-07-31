@@ -34,10 +34,12 @@ namespace Estacionamento.Data.Repository.Estacionamento
         public async Task<RegistroEstacionamentoEntity> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento)
         {
             _context.RegistrosEstacionamento.Update(registroEstacionamento);
-            
-            await _context.SaveChangesAsync();
+            var success = await _context.SaveChangesAsync();
 
-            return registroEstacionamento;
+            if (success != 1)
+                throw new Exception("Não foi possível atualizar o registro.");
+
+            return await _context.RegistrosEstacionamento.FirstOrDefaultAsync(r => r.Id == registroEstacionamento.Id);
         }
 
         public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoAtivosDetalhado(bool registrosAtivos)
@@ -57,7 +59,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
             return await registros.ToListAsync();
         }
 
-        public async Task<RegistroEstacionamentoEntity> ObterRegistroAtivo(string placa)
+        public async Task<RegistroEstacionamentoEntity> ObterRegistroAtivoPorPlaca(string placa)
         {
             return await _context.RegistrosEstacionamento
                                     .Where(v => v.DataHoraSaida == null)

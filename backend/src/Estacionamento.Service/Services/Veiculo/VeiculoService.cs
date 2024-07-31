@@ -15,36 +15,22 @@ namespace Estacionamento.Service.Services.Veiculo
 
         public async Task<VeiculoEntity> CadastrarOuAtualizarVeiculo(VeiculoDto veiculoDto)
         {
-            try
-            {
-                bool veiculoCadastrado = await ExisteVeiculoCadastrado(veiculoDto.Placa);
+            bool veiculoCadastrado = await ExisteVeiculoCadastrado(veiculoDto.Placa);
 
-                if (veiculoCadastrado)
-                    return await _veiculoRepository.AtualizarVeiculo(veiculoDto);
+            if (veiculoCadastrado)
+                return await _veiculoRepository.AtualizarVeiculo(veiculoDto);
                 
-                return await _veiculoRepository.CadastrarVeiculo(veiculoDto);
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+            return await _veiculoRepository.CadastrarVeiculo(veiculoDto);
         }
 
         public async Task<bool> RemoverVeiculo(string placaVeiculo)
         {
-            try
-            {
-                bool veiculoCadastrado = await ExisteVeiculoCadastrado(placaVeiculo);
+            bool veiculoCadastrado = await ExisteVeiculoCadastrado(placaVeiculo);
 
-                if (veiculoCadastrado)
-                    return await _veiculoRepository.RemoverVeiculo(placaVeiculo);
+            if (veiculoCadastrado)
+                return await _veiculoRepository.RemoverVeiculo(placaVeiculo);
 
-                return false;
-            }
-            catch (Exception)
-            {
-                throw new Exception();
-            }
+            return false;
         }
 
         private async Task<bool> ExisteVeiculoCadastrado(string placaVeiculo)
