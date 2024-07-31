@@ -17,7 +17,7 @@ namespace Estacionamento.Service.Services.Veiculo
         {
             try
             {
-                bool veiculoCadastrado = await ExisteVeiculoCadastrado(id: null, veiculoDto.Placa);
+                bool veiculoCadastrado = await ExisteVeiculoCadastrado(veiculoDto.Placa);
 
                 if (veiculoCadastrado)
                     return await _veiculoRepository.AtualizarVeiculo(veiculoDto);
@@ -30,14 +30,14 @@ namespace Estacionamento.Service.Services.Veiculo
             }
         }
 
-        public async Task<bool> RemoverVeiculo(int id)
+        public async Task<bool> RemoverVeiculo(string placaVeiculo)
         {
             try
             {
-                bool veiculoCadastrado = await ExisteVeiculoCadastrado(id, placaVeiculo: null);
+                bool veiculoCadastrado = await ExisteVeiculoCadastrado(placaVeiculo);
 
                 if (veiculoCadastrado)
-                    return await _veiculoRepository.RemoverVeiculo(id);
+                    return await _veiculoRepository.RemoverVeiculo(placaVeiculo);
 
                 return false;
             }
@@ -47,11 +47,8 @@ namespace Estacionamento.Service.Services.Veiculo
             }
         }
 
-        private async Task<bool> ExisteVeiculoCadastrado(int? id, string placaVeiculo)
+        private async Task<bool> ExisteVeiculoCadastrado(string placaVeiculo)
         {
-            if (id is not null)
-                return await _veiculoRepository.ExisteVeiculoPorId(id ?? 0);
-
             if (placaVeiculo is not null)
                 return await _veiculoRepository.ExisteVeiculoPorPlaca(placaVeiculo);
 
