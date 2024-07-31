@@ -4,7 +4,6 @@ using Estacionamento.Data.Repository.TabelaDePrecos;
 using Estacionamento.Domain.Dto;
 using Estacionamento.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 namespace Estacionamento.Data.Repository.Estacionamento
 {
@@ -32,11 +31,13 @@ namespace Estacionamento.Data.Repository.Estacionamento
             return _mapper.Map<RegistroEstacionamentoEntity>(resgitro);
         }
 
-        public async Task<bool> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento)
+        public async Task<RegistroEstacionamentoEntity> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento)
         {
             _context.RegistrosEstacionamento.Update(registroEstacionamento);
             
-            return (await _context.SaveChangesAsync()) == 1;
+            await _context.SaveChangesAsync();
+
+            return registroEstacionamento;
         }
 
         public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoAtivosDetalhado(bool registrosAtivos)

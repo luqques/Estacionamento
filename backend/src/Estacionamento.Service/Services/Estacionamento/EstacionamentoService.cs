@@ -44,7 +44,7 @@ namespace Estacionamento.Service.Services.Estacionamento
             return await _estacionamentoRespository.ListarRegistrosEstacionamentoAtivosDetalhado(registrosAtivos);
         }
 
-        public async Task<bool> RegistrarSaidaDeVeiculo(string placa)
+        public async Task<RegistroEstacionamentoDetalhadoDto> RegistrarSaidaDeVeiculo(string placa)
         {
             ArgumentException.ThrowIfNullOrWhiteSpace(nameof(placa));
 
@@ -61,7 +61,22 @@ namespace Estacionamento.Service.Services.Estacionamento
 
             registroEstacionamento.CalcularValorAPagar(tabelaDePrecos);
 
-            return await _estacionamentoRespository.RemoverVeiculoDoEstacionamento(registroEstacionamento);
+            RegistroEstacionamentoEntity registroAtualizado = await _estacionamentoRespository.RemoverVeiculoDoEstacionamento(registroEstacionamento);
+
+            RegistroEstacionamentoDetalhadoDto registroDetalhado = CriarRegistroDetalhado(registroAtualizado);
+
+            return registroDetalhado;
+        }
+
+        private RegistroEstacionamentoDetalhadoDto CriarRegistroDetalhado(RegistroEstacionamentoEntity registroAtualizado)
+        {
+            return new RegistroEstacionamentoDetalhadoDto(registroAtualizado.Veiculo.Placa,
+                                                          registroAtualizado.DataHoraEntrada,
+                                                          registroAtualizado.DataHoraSaida,
+                                                          registroAtualizado.Duracao,
+                                                          registroAtualizado.Duracao.Value.TotalHours,
+                                                          registroAtualizado.TabelaDePrecos.PrecoHora,
+                                                          registroAtualizado.ValorPagar);
         }
     }
 }

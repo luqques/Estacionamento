@@ -34,19 +34,19 @@ namespace Estacionamento.Api.Controllers
         }
 
         [HttpDelete("registrar-saida/{placa}")]
-        public async Task<ActionResult<bool>> SaidaVeiculo(string placa)
+        public async Task<ActionResult<RegistroEstacionamentoDetalhadoDto>> SaidaVeiculo(string placa)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(placa))
-                    return BadRequest();
+                    return BadRequest(new { message = "Por favor, insira a placa de um veículo." });
 
-                bool veiculoRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(placa.ToUpper());
+                var registroRemovido = await _estacionamentoService.RegistrarSaidaDeVeiculo(placa.ToUpper());
 
-                if (!veiculoRemovido)
-                    return NotFound(new { message = "O veículo não se encontra no estacionamento." });
+                if (registroRemovido is null)
+                    return NotFound(new { message = "Este veículo não se encontra no estacionamento." });
 
-                return Ok(new { message = "Saída registrada com sucesso!" });
+                return Ok(registroRemovido);
             }
             catch (Exception ex)
             {

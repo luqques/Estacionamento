@@ -8,7 +8,7 @@ namespace Estacionamento.Domain.Dto
                                                 DateTime dataHoraEntrada, 
                                                 DateTime? dataHoraSaida, 
                                                 TimeSpan? duracao, 
-                                                double? tempoCobradoHoras, 
+                                                double? totalHoras, 
                                                 decimal? precoHora, 
                                                 decimal? valorPagar)
         {
@@ -17,8 +17,8 @@ namespace Estacionamento.Domain.Dto
             DataHoraSaida = dataHoraSaida;
             Duracao = duracao;
 
-            if (tempoCobradoHoras is not null)
-                TempoCobradoHoras = (int)tempoCobradoHoras == 0 ? 1 : (int)tempoCobradoHoras;
+            if (totalHoras is not null)
+                TempoCobradoHoras = (int)totalHoras == 0 ? 1 : (int)totalHoras;
 
             PrecoHora = precoHora;
             ValorPagar = valorPagar;

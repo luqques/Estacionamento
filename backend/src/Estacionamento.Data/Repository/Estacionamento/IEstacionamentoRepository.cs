@@ -6,7 +6,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
     public interface IEstacionamentoRepository
     {
         Task<RegistroEstacionamentoEntity> InserirEntradaVeiculo(RegistroEstacionamentoDto registroEstacionamento);
-        Task<bool> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento);
+        Task<RegistroEstacionamentoEntity> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento);
         Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoAtivosDetalhado(bool registrosAtivos);
         Task<RegistroEstacionamentoEntity> ObterRegistroAtivo(string placa);
     }
