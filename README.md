@@ -1,8 +1,8 @@
-# Sistema de Controle de Estacionamento
+# Sistema de Controle de Estacionamento 🚗
 
 Neste desafio, desenvolvi um pequeno sistema de controle e gerenciamento de entrada e saída de veículos em um estacionamento.
 
-## Tecnologias utilizadas
+## Tecnologias utilizadas 💻
 
 ### Back-end
 - C#
@@ -15,7 +15,7 @@ Neste desafio, desenvolvi um pequeno sistema de controle e gerenciamento de entr
 ### Front-end
 - React.js
 - Javascript
-- Tailwind
+- Tailwind CSS
 
 ### Banco de Dados
 - MySQL
@@ -25,7 +25,6 @@ Neste desafio, desenvolvi um pequeno sistema de controle e gerenciamento de entr
 - TDD (Test Driven Development) com Unit Tests
 
 ## Bônus
-
 Devido ao tempo de 1 semana para o teste, algumas ideias não foram possíveis de serem implementadas ainda, mas futuramente pretendo adicionar as seguintes features ao projeto.
 
 - Integration Tests para garantir funcionamento com o servidor e banco de dados.
