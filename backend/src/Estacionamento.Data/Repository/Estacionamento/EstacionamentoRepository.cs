@@ -4,7 +4,6 @@ using Estacionamento.Data.Repository.TabelaDePrecos;
 using Estacionamento.Domain.Dto;
 using Estacionamento.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 namespace Estacionamento.Data.Repository.Estacionamento
 {
@@ -32,11 +31,15 @@ namespace Estacionamento.Data.Repository.Estacionamento
             return _mapper.Map<RegistroEstacionamentoEntity>(resgitro);
         }
 
-        public async Task<bool> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento)
+        public async Task<RegistroEstacionamentoEntity> RemoverVeiculoDoEstacionamento(RegistroEstacionamentoEntity registroEstacionamento)
         {
             _context.RegistrosEstacionamento.Update(registroEstacionamento);
-            
-            return (await _context.SaveChangesAsync()) == 1;
+            var success = await _context.SaveChangesAsync();
+
+            if (success != 1)
+                throw new Exception("Não foi possível atualizar o registro.");
+
+            return await _context.RegistrosEstacionamento.FirstOrDefaultAsync(r => r.Id == registroEstacionamento.Id);
         }
 
         public async Task<IEnumerable<RegistroEstacionamentoDetalhadoDto>> ListarRegistrosEstacionamentoAtivosDetalhado(bool registrosAtivos)
@@ -56,7 +59,7 @@ namespace Estacionamento.Data.Repository.Estacionamento
             return await registros.ToListAsync();
         }
 
-        public async Task<RegistroEstacionamentoEntity> ObterRegistroAtivo(string placa)
+        public async Task<RegistroEstacionamentoEntity> ObterRegistroAtivoPorPlaca(string placa)
         {
             return await _context.RegistrosEstacionamento
                                     .Where(v => v.DataHoraSaida == null)

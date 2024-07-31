@@ -47,19 +47,19 @@ export const deleteSaidaVeiculo = async (placaVeiculo) => {
   }
 };
 
-export const postTabelaDePrecos = async (preco) => {
+export const postPrecoHora = async (precoHora) => {
   try {
     const response = await axios({
       method: 'POST',
-      url: `${API_URL}/registroEstacionamento/registrar-entrada`,
-      data: veiculoData,
+      url: `${API_URL}/tabelaDePrecos/alterar-preco`,
+      params: { precoHora },
       headers: {
         'content-type': 'application/json',
       },
     })
     return response.data;
   } catch (error) {
-    console.error('Erro ao adicionar veículo ao estacionamento: ', error);
+    console.error('Erro ao alterar o preço da hora: ', error);
     return null;
   }
 };

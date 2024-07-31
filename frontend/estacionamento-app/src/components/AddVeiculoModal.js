@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-const AddVeiculoModal = ({ isOpen, onClose, onAddVehicle }) => {
+const AddVeiculoModal = ({ isOpen, onClose, onAddVeiculo }) => {
 
   const [veiculoData, setveiculoData] = useState({
     placa: '',
@@ -16,7 +16,7 @@ const AddVeiculoModal = ({ isOpen, onClose, onAddVehicle }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddVehicle(veiculoData);
+    onAddVeiculo(veiculoData);
     onClose();
   };
 
@@ -49,7 +49,7 @@ const AddVeiculoModal = ({ isOpen, onClose, onAddVehicle }) => {
           className="border rounded w-full py-2 px-3 mb-4"
         />
         <div className='flex justify-end'>
-          <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md font-semibold">
+          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded-md font-semibold">
             Registrar
           </button>
         </div>

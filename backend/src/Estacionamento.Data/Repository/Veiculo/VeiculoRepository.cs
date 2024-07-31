@@ -32,17 +32,18 @@ namespace Estacionamento.Data.VeiculoRepository
             VeiculoEntity veiculo = _context.Veiculos
                 .Where(v => v.Placa == veiculoDto.Placa)
                 .FirstOrDefault();
-
+            
             _context.Veiculos.Update(veiculo);
-
             await _context.SaveChangesAsync();
             
             return _mapper.Map<VeiculoEntity>(veiculo);
         }
 
-        public async Task<bool> RemoverVeiculo(int id)
+        public async Task<bool> RemoverVeiculo(string placaVeiculo)
         {
-            var veiculo = await _context.Veiculos.FindAsync(id);
+            var veiculo = await _context.Veiculos
+                .Where(v => v.Placa.Equals(placaVeiculo))
+                .FirstOrDefaultAsync();
 
             if (veiculo is null)
                 return false;
@@ -57,9 +58,13 @@ namespace Estacionamento.Data.VeiculoRepository
             return await _context.Veiculos.AnyAsync(v => v.Placa == placaVeiculo);
         }
 
-        public async Task<bool> ExisteVeiculoPorId(int id)
+        public async Task<VeiculoEntity> ObterVeiculoPorId(int id)
         {
-            return await _context.Veiculos.AnyAsync(v => v.Id == id);
+            var veiculo = await _context.Veiculos
+                                        .Where(v => v.Id == id)
+                                        .FirstOrDefaultAsync();
+
+            return veiculo;
         }
     }
 }

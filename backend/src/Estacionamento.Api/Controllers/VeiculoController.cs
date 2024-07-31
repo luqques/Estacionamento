@@ -20,26 +20,40 @@ namespace Estacionamento.Api.Controllers
         [HttpPost("cadastrar")]
         public async Task<ActionResult<VeiculoEntity>> CadastrarVeiculo([FromBody] VeiculoDto veiculoDto)
         {
-            if (veiculoDto is null)
-                return BadRequest();
+            try
+            {
+                if (veiculoDto is null)
+                    return BadRequest(new { message = "Por favor, preencha as informações do veículo." });
 
-            var veiculo = await _veiculoService.CadastrarOuAtualizarVeiculo(veiculoDto);
+                var veiculo = await _veiculoService.CadastrarOuAtualizarVeiculo(veiculoDto);
 
-            return Ok(veiculo);
+                return Ok(new { message = "Veículo cadastrado com sucesso!" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
-        [HttpDelete("remover/{veiculoId}")]
-        public async Task<ActionResult<bool>> SaidaVeiculo(int id)
+        [HttpDelete("remover/{placaVeiculo}")]
+        public async Task<ActionResult<bool>> SaidaVeiculo(string placaVeiculo)
         {
-            if (id == 0)
-                return BadRequest();
+            try
+            {
+                if (string.IsNullOrWhiteSpace(placaVeiculo))
+                    return BadRequest(new { message = "Por favor, informe a placa do veículo." });
 
-            bool veiculo = await _veiculoService.RemoverVeiculo(id);
+                bool veiculo = await _veiculoService.RemoverVeiculo(placaVeiculo);
 
-            if (veiculo)
-                return NotFound();
+                if (!veiculo)
+                    return NotFound("Veículo não encontrado.");
 
-            return Ok(veiculo);
+                return Ok(new { message = "Veículo removido do banco de dados com sucesso." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
     }
 }

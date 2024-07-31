@@ -35,7 +35,7 @@ namespace Estacionamento.Data.Repository.TabelaDePrecos
                                 .FirstOrDefaultAsync();
         }
 
-        public async Task<TabelaDePrecosEntity> ObterTabelaDePrecos(int id)
+        public async Task<TabelaDePrecosEntity> ObterTabelaDePrecosPorId(int id)
         {
             return await _context.TabelaDePrecos.FirstOrDefaultAsync(tp => tp.Id == id);
         }

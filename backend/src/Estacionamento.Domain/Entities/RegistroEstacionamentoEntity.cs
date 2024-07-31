@@ -47,18 +47,15 @@ namespace Estacionamento.Domain.Entities
 
         public void CalcularTotalDeHoras()
         {
-            if (DataHoraSaida is null)
-                throw new ArgumentNullException("O veículo ainda não saiu do estacionamento.");
-
+            DataHoraSaida = DateTime.Now;
             Duracao = DataHoraSaida.Value - DataHoraEntrada;
         }
 
-        public void CalcularValorAPagar(TabelaDePrecosEntity tabelaDePrecos)
+        public void CalcularValorAPagar()
         {
             if (Duracao is null)
                 throw new InvalidOperationException("Os minutos totais não foram calculados.");
 
-            TabelaDePrecos = tabelaDePrecos;
             ValorPagar = TabelaDePrecos.CalcularPreco((int)Duracao.Value.TotalMinutes);
         }
     }
