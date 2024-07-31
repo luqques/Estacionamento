@@ -63,9 +63,9 @@ namespace Estacionamento.Service.Services.Estacionamento
             registroEstacionamento.CalcularTotalDeHoras();
             registroEstacionamento.CalcularValorAPagar();
 
-            registroEstacionamento = await _estacionamentoRespository.RemoverVeiculoDoEstacionamento(registroEstacionamento);
+            var registroAtualizado = await _estacionamentoRespository.RemoverVeiculoDoEstacionamento(registroEstacionamento);
 
-            return CriarRegistroDetalhado(registroEstacionamento);
+            return CriarRegistroDetalhado(registroAtualizado);
         }
 
         private RegistroEstacionamentoDetalhadoDto CriarRegistroDetalhado(RegistroEstacionamentoEntity registroAtualizado)

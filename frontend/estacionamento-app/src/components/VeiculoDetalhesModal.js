@@ -28,10 +28,10 @@ const VeiculoDetalhesModal = ({ isOpen, onClose, veiculo }) => {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={onClose} className="font-sans" contentLabel="Detalhes do Veículo">
-      <h2 className='text-xl'>Veículo removido do estacionamento com sucesso!</h2>
+      <div className='text-xl mb-5 font-bold'>Saída registrada com sucesso!</div>
       <p><strong>Placa:</strong> {veiculo.placa}</p>
       <p><strong>Hora de Entrada:</strong> {formatarDataHora(veiculo.dataHoraEntrada)}</p>
-      <p><strong>Data de Saída:</strong> {formatarDataHora(veiculo.datahoraSaida)}</p>
+      <p><strong>Data de Saída:</strong> {formatarTimeStamp(formatarDataHora(veiculo.dataHoraSaida))}</p>
       <p><strong>Duração:</strong> {formatarTimeStamp(veiculo.duracao)}</p>
       <p><strong>Horas Cobradas:</strong> {veiculo.tempoCobradoHoras} hora(s)</p>
       <p><strong>Preço da Hora:</strong> {formatarReais(veiculo.precoHora)}</p>
