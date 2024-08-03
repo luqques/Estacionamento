@@ -1,4 +1,8 @@
 ﻿using AutoMapper;
+using Estacionamento.Fipe.Api.Dto;
+using Estacionamento.Fipe.Api.Events;
+using Estacionamento.Fipe.Api.FipeHttpClient;
+using ItemService.RabbitMqClient;
 
 namespace Estacionamento.Fipe.Api
 {
@@ -24,16 +28,19 @@ namespace Estacionamento.Fipe.Api
                     });
             });
 
+            services.AddHttpClient<FipeServiceHttpClient>();
+            services.AddHttpClient();
+            services.AddSingleton<RabbitMqConsumer>();
+            services.AddHostedService(sp => sp.GetRequiredService<RabbitMqConsumer>());
+
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
-            services.AddHttpContextAccessor();
-
             services.AddSingleton(new MapperConfiguration(config =>
             {
-                config.CreateMap<VeiculoDto, VeiculoEntity>();
-                config.CreateMap<VeiculoEntity, VeiculoDto>();
+                //config.CreateMap<VeiculoDto, VeiculoEntity>();
+                //config.CreateMap<VeiculoEntity, VeiculoDto>();
             }).CreateMapper());
         }
 
