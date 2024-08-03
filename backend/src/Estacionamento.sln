@@ -23,6 +23,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Estacionamento.Service", "E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Estacionamento.Data", "Estacionamento.Data\Estacionamento.Data.csproj", "{F30457EB-92C4-488F-9369-7270796F01EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estacionamento.Integration", "Estacionamento.Integration\Estacionamento.Integration.csproj", "{7439184F-C942-4B38-83DD-42C683334C19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estacionamento.Fipe.Api", "Estacionamento.Fipe.Api\Estacionamento.Fipe.Api.csproj", "{54B13683-7FA4-48DB-8E2D-74F344883FE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{F30457EB-92C4-488F-9369-7270796F01EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F30457EB-92C4-488F-9369-7270796F01EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F30457EB-92C4-488F-9369-7270796F01EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7439184F-C942-4B38-83DD-42C683334C19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7439184F-C942-4B38-83DD-42C683334C19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7439184F-C942-4B38-83DD-42C683334C19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7439184F-C942-4B38-83DD-42C683334C19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54B13683-7FA4-48DB-8E2D-74F344883FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54B13683-7FA4-48DB-8E2D-74F344883FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54B13683-7FA4-48DB-8E2D-74F344883FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54B13683-7FA4-48DB-8E2D-74F344883FE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +71,8 @@ Global
 		{DE772333-D604-4955-85AA-D3FD42EF722F} = {CBEF9172-4157-401D-AD3F-5E34AB0D7EA7}
 		{38725D35-BBD9-4412-9F63-0A53B6DAF4B6} = {91751BDF-2ACE-4CED-99AE-2C749CF2DE80}
 		{F30457EB-92C4-488F-9369-7270796F01EA} = {C6B840C2-D3C2-43B9-907C-79AB3D0BC971}
+		{7439184F-C942-4B38-83DD-42C683334C19} = {C6B840C2-D3C2-43B9-907C-79AB3D0BC971}
+		{54B13683-7FA4-48DB-8E2D-74F344883FE3} = {E3EC241A-9241-4A3D-8390-C29F38FEED9F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {606B3411-898C-4E45-BFA3-CA0262C5FAC7}
